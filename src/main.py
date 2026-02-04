@@ -1,13 +1,23 @@
 import pygame
 import sys
 
-from Initialization import Display, Gameloop, Assets
+from Initialization.display import Display 
+from Initialization.gameloop import GameLoop 
+from Initialization.assets import Assets
+from System.inputSystem import InputSystem
 
 pygame.init()
 
-Assets.loadAssets()
-Display.startDisplay()
-Gameloop.startGameloop()
+inputSystem: InputSystem = InputSystem()
+display: Display = Display(800, 800, "pygameRpg")
+gameloop: GameLoop = GameLoop(display, inputSystem)
+assets: Assets = Assets()
+
+
+
+assets.loadAssets()
+display.setColor((30, 30, 30))
+gameloop.startGameloop()
 
 pygame.quit()
 sys.exit()
