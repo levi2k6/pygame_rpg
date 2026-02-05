@@ -1,5 +1,5 @@
 import pygame
-from Initialization import gameloop 
+from Initialization.gameloop import GameLoop 
 from Gamestate import LoadedEntities
 from System import SceneSystem
 
@@ -7,16 +7,11 @@ class InputSystem:
 
     def __init__(
         self,
-        gameloop: gameloop.GameLoop | None = None, 
     ):
-        self.gameloop = gameloop
 
-    def detectInput(self, event):
-        if(self.gameloop == None):
-            raise ValueError("Health cannot be negative")
-
+    def detectInput(self, event, gameloop: GameLoop):
         if event.type == pygame.QUIT:
-            self.gameloop.isRunning = False
+            gameloop.isRunning = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_f:
                 print("f pressed")

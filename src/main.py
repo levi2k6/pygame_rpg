@@ -8,12 +8,12 @@ from System.inputSystem import InputSystem
 
 pygame.init()
 
-inputSystem: InputSystem = InputSystem()
 display: Display = Display(800, 800, "pygameRpg")
-gameloop: GameLoop = GameLoop(display, inputSystem)
 assets: Assets = Assets()
 
 
+inputSystem: InputSystem = InputSystem()
+gameloop: GameLoop = GameLoop(display, inputSystem)
 
 assets.loadAssets()
 display.setColor((30, 30, 30))

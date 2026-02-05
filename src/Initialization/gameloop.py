@@ -1,8 +1,8 @@
 import pygame
 from Initialization.display import Display
-import System.inputSystem as InputSystem
 from Gamestate import LoadedEntities 
-from System import UISystem ,SceneSystem 
+from System import UISystem ,SceneSystem
+from System.inputSystem import InputSystem 
 
 clock = pygame.time.Clock()
 
