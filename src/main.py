@@ -11,7 +11,6 @@ pygame.init()
 display: Display = Display(800, 800, "pygameRpg")
 assets: Assets = Assets()
 
-
 inputSystem: InputSystem = InputSystem()
 gameloop: GameLoop = GameLoop(display, inputSystem)
 
