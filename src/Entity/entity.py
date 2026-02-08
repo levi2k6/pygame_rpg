@@ -1,22 +1,27 @@
 # from abc import abstractmethod
 import pygame
-
-from util.types.entityPropertyTypes import Vec2
+import math
+from pygame import Surface, Vector2 
 
 class Entity:
-    def __init__(self, name: str, position: Vec2, collisionShape, size: Vec2, sprite):
+    def __init__(self, name: str, position: Vector2, size: Vector2, sprite: Surface):
         self.name: str = name
-        self.position: Vec2 = position
-        self.collisionShape = collisionShape
-        self.size: Vec2 = size
-        self.sprite = sprite
+        self.position: Vector2 = position 
+        self.size: Vector2 = size
+        self.rotation: float = 0 
+        self.sprite: Surface = sprite
 
-    def draw(self, screen):
-        scaled_sprite = pygame.transform.scale(self.sprite, (self.size.x, self.size.y))
-        sprite_x = self.position.x - (self.size.x / 2) 
-        sprite_y = self.position.y - (self.size.y / 2) 
-        screen.blit(scaled_sprite, (sprite_x, sprite_y))
-        # pygame.draw.circle(screen, self.bodyColor, (self.x, self.y), 10)
-    pass
+        self.setSize(self.size) 
 
+    def setSize(self, size: Vector2):
+        self.size = size
+        scaledSprite = pygame.transform.scale(self.sprite, self.size) 
+        self.sprite = scaledSprite
+
+    def setRotation(self, angle: float):
+        angle_rad = math.pi / angle 
+        angle_degree = math.degrees(angle_rad)
+        self.rotation = angle_degree
+        scaledSprite = pygame.transform.rotate(self.sprite, self.rotation)
+        self.sprite = scaledSprite
 

@@ -1,32 +1,19 @@
-from typing import Tuple
 import pygame
+from pygame import Vector2
 
 class Display:
 
     def __init__(
         self, 
-        width: int,
-        height: int,
+        size: Vector2,
         caption: str
     ) -> None:
-        self.screen = pygame.display.set_mode((width, height))
-        pygame.display.set_caption(caption) 
+        self.size = size
+        self.caption = caption 
         pass 
 
-    def setColor(self, color: Tuple[int, int, int]):
-        self.screen.fill(color);
+    def startDisplay(self):
+        self.screen = pygame.display.set_mode(self.size)
+        pygame.display.set_caption
 
-    def setWidth(self, width):
-        self.width = width
-
-    def getWidth(self):
-        return self.width 
-
-    def setHeight(self, height):
-        self.height = height
-
-    def getheight(self):
-        return self.height
-
-    
 

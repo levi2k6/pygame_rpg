@@ -1,18 +1,19 @@
 import pygame
 from Initialization.display import Display
 from Gamestate import LoadedEntities 
-from System import UISystem ,SceneSystem
-from System.inputSystem import InputSystem 
+from System import UISystem ,SceneSystem, sceneSystem
+from System.inputSystem import InputSystem
 
 clock = pygame.time.Clock()
 
 class GameLoop: 
 
-    def __init__(self, display: Display, inputSystem: InputSystem) -> None:
+    def __init__(self, display: Display, inputSystem: InputSystem, sceneSystem: SceneSystem) -> None:
         self.display: Display = display;
         self.clock = pygame.time.Clock()
         self.isRunning = True;
-        pass
+        self.inputSystem = inputSystem
+        self.sceneSystem = sceneSystem
 
 
     def startGameloop(self):
@@ -20,12 +21,8 @@ class GameLoop:
             timeDelta = self.clock.tick(60) / 1000.0
 
             self.display.startDisplay()
-            for event in pygame.event.get():
-                # UISystem.checkEventUI(event, timeDelta)
-                InputSystem.detectInput(event)
-            # UISystem.drawUI(timeDelta)
-            LoadedEntities.displayEntities()
-            SceneSystem.sceneChecker()
+            self.inputSystem.detectInput(self)
+            self.sceneSystem.sceneChecker()
             
             pygame.display.flip()
 

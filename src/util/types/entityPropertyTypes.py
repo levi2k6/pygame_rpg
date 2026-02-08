@@ -1,7 +1,13 @@
-class Vec2: 
-    __slots__ = ("x", "y")
+from pygame import Surface, Rect, Vector2
 
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+class CollisionBox: 
+    __slots__ = {"boxRect", "position", "size"}
+
+    def __init__(self, boxRect: Rect, position: Vector2, size: Vector2):
+        self.boxRect: Rect = boxRect
+        self.position: Vector2 = position
+        self.size: Vector2 = size
+
+
+
 
