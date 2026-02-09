@@ -1,15 +1,16 @@
-from Scene.combatScene import CombatScene
+from Scene.sceneFactory import SceneFactory
+from Scene.CombatScene.combatScene import CombatScene
 from System.renderSystem import RenderSystem
 
 class SceneSystem:
-    def __init__(self, renderSystem: RenderSystem, combatScene: CombatScene):
+    def __init__(self, renderSystem: RenderSystem, sceneFactory: SceneFactory):
         self.renderSystem = renderSystem 
-        self.combatScene = combatScene
+        self.sceneFactory = sceneFactory 
 
-    currentScene: str = ""
+        self.currentScene: str = ""
 
     def sceneChecker(self):
-        if self.currentScene == "MainMenu":
-            pass
-        elif self.currentScene == "CombatScene":
-            self.renderSystem.renderCombatScene(self.combatScene)
+        scene = self.sceneFactory.create("CombatScene")
+        if scene == None: raise RuntimeError("Scene not found in SceneFactory") 
+        self.renderSystem.renderScene(scene)
+

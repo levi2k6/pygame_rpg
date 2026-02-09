@@ -1,6 +1,6 @@
 from typing import Tuple
 import pygame
-from pygame.math import Vector2, Surface
+from pygame import Vector2, Surface
 from Entity.entity import Entity
 from Initialization.display import Display
 from Scene.CombatScene.combatScene import CombatScene
@@ -21,7 +21,6 @@ class RenderSystem:
         self.renderTexture(entity.sprite, entity.size, entity.position);
         pygame.draw.circle(self.display.screen, (255, 0, 0), entity.position, 10)
 
-
     def renderScene(self, scene: Scene):
         if not len(scene.backgrounds) == 0:
             for background in scene.backgrounds: 
@@ -30,14 +29,17 @@ class RenderSystem:
 
         if not len(scene.props) == 0:
             for prop in scene.props: 
-                self.renderTexture(prop, prop.size, prop.position)
+                self.renderTexture(prop.sprite, prop.size, prop.position)
+
+        if type(scene) is CombatScene: 
+            self.renderCombatScene(scene)
+
 
     def renderCombatScene(self, scene: CombatScene): 
-        self.renderScene(scene)
-        if not len(scene.entities.team1):
-            for entity in scene.entities.team1: 
+        if not len(scene.entities["team1"]):
+            for entity in scene.entities["team1"]: 
                 self.renderTexture(entity, entity.size, entity.position)
 
-        if not len(scene.entities.team2):
-            for entity in scene.entities.team2: 
+        if not len(scene.entities["team2"]):
+            for entity in scene.entities["team2"]: 
                 self.renderTexture(entity, entity.size, entity.position)

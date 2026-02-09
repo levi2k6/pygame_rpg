@@ -13,17 +13,17 @@ class CombatScene(Scene):
         self.gameState = gameState
         self.combatSystem = combatSystem
         self.entities: dict = {}
+        self.spawnSystem = spawnSystem
         
     def spawnEntities(self):
         team1: List[Entity] = [] 
-        player: Human = self.gameState.player
-        if not player: 
-            raise RuntimeError("Player is not found") 
+        player: Human | None = self.gameState.player
+        if not player: raise RuntimeError("Player is not found") 
         team1.append(player)
-        companion: Entity = self.gameState.companion
+        companion: Entity | None = self.gameState.companion
         if companion: team1.append(companion) 
         
-        team1.append(self.gameState.player)
+        team1.append(player)
 
         team2: List[Entity] = []
         goblin = self.spawnSystem.spawnGoblin()
@@ -32,7 +32,4 @@ class CombatScene(Scene):
         self.entities["team1"] = team1
         self.entities["team2"] = team2
         pass
-
-
-
 
