@@ -1,7 +1,6 @@
 import pygame
 from Initialization.display import Display
-from Gamestate import LoadedEntities 
-from System import UISystem ,SceneSystem, sceneSystem
+from System.sceneSystem import SceneSystem
 from System.inputSystem import InputSystem
 
 clock = pygame.time.Clock()
@@ -18,7 +17,7 @@ class GameLoop:
 
     def startGameloop(self):
         while self.isRunning:
-            timeDelta = self.clock.tick(60) / 1000.0
+            delta = self.clock.tick(60) / 1000.0
 
             self.display.startDisplay()
             self.inputSystem.detectInput(self)

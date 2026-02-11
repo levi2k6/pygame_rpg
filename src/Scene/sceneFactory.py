@@ -6,6 +6,7 @@ from Scene.CombatScene.combatSystem import CombatSystem
 from Scene.CombatScene.spawnSystem import SpawnSystem
 from Scene.MainMenuScene.mainMenuScene import MainMenuScene
 from Scene.scene import Scene
+from util.enums.SceneEnum import SceneEnum
 
 class SceneFactory:
 
@@ -13,18 +14,12 @@ class SceneFactory:
         self.gameState = gameState
         self.assets = assets
 
-    def create(self, sceneName: str) -> Scene | None:
-        if sceneName == MainMenuScene:
+    def create(self, sceneEnum: SceneEnum ) -> Scene | None:
+        if sceneEnum == SceneEnum.MAINMENU:
             return MainMenuScene()
-        elif sceneName == CombatScene:
+        elif sceneEnum == SceneEnum.COMBAT:
             combatSystem: CombatSystem = CombatSystem()
             spawnSystem: SpawnSystem = SpawnSystem(self.assets)
             return CombatScene(self.gameState, combatSystem, spawnSystem); 
-
-        return None 
-
-        
-
-
-
+        return None
 

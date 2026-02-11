@@ -2,26 +2,29 @@ import pygame
 from pygame import Vector2
 import sys
 
+from GameState.gameState import GameState
 from Initialization.display import Display 
 from Initialization.gameloop import GameLoop 
 from Initialization.assets import Assets
+from Scene.sceneFactory import SceneFactory
 from System.inputSystem import InputSystem
+from System.renderSystem import RenderSystem
 from System.sceneSystem import SceneSystem
 
 pygame.init()
 
 display: Display = Display( Vector2(800, 800), "pygameRpg")
 assets: Assets = Assets()
+gameState: GameState = GameState()
+renderSystem: RenderSystem = RenderSystem(display)
 
-
-sceneSystem: SceneSystem = SceneSystem()
-
-
+sceneFactory: SceneFactory = SceneFactory(gameState, assets)
+sceneSystem: SceneSystem = SceneSystem(renderSystem, sceneFactory)
 inputSystem: InputSystem = InputSystem()
-gameloop: GameLoop = GameLoop(display, inputSystem)
+
+gameloop: GameLoop = GameLoop(display, inputSystem, sceneSystem)
 
 assets.loadAssets()
-display.setColor((30, 30, 30))
 gameloop.startGameloop()
 
 pygame.quit()

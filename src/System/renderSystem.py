@@ -5,7 +5,6 @@ from Entity.entity import Entity
 from Initialization.display import Display
 from Scene.CombatScene.combatScene import CombatScene
 from Scene.scene import Scene
-from util.types.entityPropertyTypes import CollisionBox
 
 class RenderSystem:
 
@@ -13,8 +12,8 @@ class RenderSystem:
         self.display = display
 
     def renderTexture(self, texture: Surface, size: Vector2, position: Vector2):
-        sprite_x = position[0]- (position[0] / 2) 
-        sprite_y = position[1] - (position[1] / 2) 
+        sprite_x = position.x - (size.x / 2) 
+        sprite_y = position.y - (size.y / 2) 
         self.display.screen.blit(texture, (sprite_x, sprite_y))
 
     def renderEntity(self, entity: Entity):
