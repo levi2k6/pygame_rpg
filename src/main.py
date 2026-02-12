@@ -15,16 +15,15 @@ pygame.init()
 
 display: Display = Display( Vector2(800, 800), "pygameRpg")
 assets: Assets = Assets()
-gameState: GameState = GameState()
+gameState: GameState = GameState(assets)
 renderSystem: RenderSystem = RenderSystem(display)
 
 sceneFactory: SceneFactory = SceneFactory(gameState, assets)
 sceneSystem: SceneSystem = SceneSystem(renderSystem, sceneFactory)
-inputSystem: InputSystem = InputSystem()
+inputSystem: InputSystem = InputSystem(gameState)
 
 gameloop: GameLoop = GameLoop(display, inputSystem, sceneSystem)
 
-assets.loadAssets()
 gameloop.startGameloop()
 
 pygame.quit()

@@ -17,10 +17,10 @@ class GameLoop:
 
     def startGameloop(self):
         while self.isRunning:
+            self.display.screen.fill((0,0,0))
             delta = self.clock.tick(60) / 1000.0
 
-            self.display.startDisplay()
-            self.inputSystem.detectInput(self)
+            self.isRunning = self.inputSystem.detectInput(delta)
             self.sceneSystem.sceneChecker()
             
             pygame.display.flip()

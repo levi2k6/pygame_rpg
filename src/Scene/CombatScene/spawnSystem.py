@@ -1,8 +1,8 @@
 from pygame import Vector2
 from Entity.entity import Entity
-from Entity.goblin import Goblin
-from Entity.monster import Monster
+from Entity.monsters.goblin import Goblin
 from Initialization.assets import Assets
+from Properties.form import Form
 
 class SpawnSystem:
 
@@ -10,10 +10,11 @@ class SpawnSystem:
         self.assets: Assets = assets
 
     def spawnGoblin(self) -> Entity:
-        position: Vector2 = Vector2(100, 100)
-        size: Vector2 = Vector2(400, 400)
+        position: Vector2 = Vector2(600, 100)
+        size: Vector2 = Vector2(200, 200)
         sprite = self.assets.data["forsen"]
-        goblin = Goblin("goblin", position, size, sprite)
+        form: Form = Form(position, size, sprite)
+        goblin = Goblin("goblin", form)
         return goblin
 
 

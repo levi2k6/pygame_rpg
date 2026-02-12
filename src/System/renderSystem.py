@@ -1,3 +1,4 @@
+from sys import is_finalizing
 from typing import Tuple
 import pygame
 from pygame import Vector2, Surface
@@ -7,7 +8,6 @@ from Scene.CombatScene.combatScene import CombatScene
 from Scene.scene import Scene
 
 class RenderSystem:
-
     def __init__(self, display: Display):
         self.display = display
 
@@ -17,8 +17,10 @@ class RenderSystem:
         self.display.screen.blit(texture, (sprite_x, sprite_y))
 
     def renderEntity(self, entity: Entity):
-        self.renderTexture(entity.sprite, entity.size, entity.position);
-        pygame.draw.circle(self.display.screen, (255, 0, 0), entity.position, 10)
+        spriteRect  = entity.form.transformedSprite.get_rect(center=entity.form.position)
+        self.display.screen.blit(entity.form.transformedSprite, spriteRect.topleft)
+
+        pygame.draw.circle(self.display.screen, (255, 0, 0), entity.form.position, 10)
 
     def renderScene(self, scene: Scene):
         if not len(scene.backgrounds) == 0:
@@ -28,17 +30,17 @@ class RenderSystem:
 
         if not len(scene.props) == 0:
             for prop in scene.props: 
-                self.renderTexture(prop.sprite, prop.size, prop.position)
+                self.renderTexture(prop.form.sprite, prop.form.size, prop.form.position)
 
         if type(scene) is CombatScene: 
             self.renderCombatScene(scene)
 
 
     def renderCombatScene(self, scene: CombatScene): 
-        if not len(scene.entities["team1"]):
+        if len(scene.entities["team1"]) != 0:
             for entity in scene.entities["team1"]: 
-                self.renderTexture(entity, entity.size, entity.position)
+                self.renderEntity(entity)
 
-        if not len(scene.entities["team2"]):
+        if len(scene.entities["team2"]) != 0:
             for entity in scene.entities["team2"]: 
-                self.renderTexture(entity, entity.size, entity.position)
+                self.renderEntity(entity)

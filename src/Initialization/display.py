@@ -10,6 +10,7 @@ class Display:
     ) -> None:
         self.size = size
         self.caption = caption 
+        self.startDisplay()
         pass 
 
     def startDisplay(self):

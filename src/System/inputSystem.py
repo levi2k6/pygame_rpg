@@ -1,29 +1,38 @@
 import pygame
-from Initialization.gameloop import GameLoop 
+
+from GameState import gameState
+from GameState.gameState import GameState
 
 class InputSystem:
 
     def __init__(
-        self
+        self,
+        gameState: GameState
     ):
+        self.gameState  = gameState
         pass
 
-    def detectInput(self, gameloop: GameLoop):
+    def detectInput(self, delta) -> bool:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                gameloop.isRunning = False
+                return False 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_f:
+                    if self.gameState.player == None: 
+                        raise RuntimeError("Game state player  not found")
                     print("f pressed")
-                    gameloop.isRunning = False
+                    self.gameState.player.form.rotateSprite(180)                     
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_d]:
                 print("d pressed")
-                # LoadedEntities.player.x += 10
+                if self.gameState.player == None: 
+                    raise RuntimeError("Game state player not found")
+                self.gameState.player.form.position.x += 100 * delta
             if keys[pygame.K_a]:
                 print("a pressed")
                 # LoadedEntities.player.x -= 10
+        return True
 
 
 

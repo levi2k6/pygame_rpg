@@ -5,7 +5,6 @@ from GameState.gameState import GameState
 from Scene.CombatScene.combatSystem import CombatSystem
 from Scene.CombatScene.spawnSystem import SpawnSystem
 from Scene.scene import Scene
-from System import UISystem 
 
 class CombatScene(Scene):
 
@@ -14,6 +13,7 @@ class CombatScene(Scene):
         self.combatSystem = combatSystem
         self.entities: dict = {}
         self.spawnSystem = spawnSystem
+        self.spawnEntities();
         
     def spawnEntities(self):
         team1: List[Entity] = [] 
@@ -31,5 +31,9 @@ class CombatScene(Scene):
 
         self.entities["team1"] = team1
         self.entities["team2"] = team2
+
+
+        print("team1: ", self.entities["team1"])
+        print("team2: ", self.entities["team2"])
         pass
 
