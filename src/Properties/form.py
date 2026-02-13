@@ -18,5 +18,3 @@ class Form:
     def rotateSprite(self, angle: float):
         rotated = pygame.transform.rotate(self.scaledSprite, angle)
         self.transformedSprite = rotated
-
-

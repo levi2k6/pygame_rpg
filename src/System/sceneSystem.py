@@ -1,3 +1,5 @@
+from Scene.MainMenuScene.mainMenuScene import MainMenuScene
+from Scene.WorldScene.worldScene import WorldScene
 from Scene.scene import Scene
 from Scene.sceneFactory import SceneFactory
 from Scene.CombatScene.combatScene import CombatScene
@@ -16,8 +18,12 @@ class SceneSystem:
     def changeScene(self, sceneEnum: SceneEnum):
         self.currentScene = self.sceneFactory.create(sceneEnum)
 
-
     def sceneChecker(self):
-        if self.currentScene == None: raise RuntimeError("Scene not found in SceneFactory") 
-        self.renderSystem.renderScene(self.currentScene)
+        if self.currentScene is None: raise RuntimeError("Scene not found in SceneFactory")
+        if type(self.currentScene) == CombatScene:
+            self.renderSystem.renderScene(self.currentScene)
+        elif type(self.currentScene) == MainMenuScene:
+            self.renderSystem.renderScene(self.currentScene)
+        elif type(self.currentScene) == WorldScene:
+            self.renderSystem.renderScene(self.currentScene)
 

@@ -11,13 +11,19 @@ class GameState:
         self.assets = assets 
         self.setPlayer()
 
+        #debugging
+        self.isPositionShow: bool = False
+
     def setPlayer(self): 
         position: Vector2 = Vector2(100, 100)
         size: Vector2 = Vector2(100, 100)
         sprite: Surface = self.assets.data["forsen"]
         form: Form = Form(position, size, sprite)
         human: Human = Human("player", form)
-        self.player = human 
+        self.player = human
 
+    def setIsPositionShow(self):
+        print("isPositionShow is changed to: ", self.isPositionShow)
+        self.isPositionShow = not self.isPositionShow
 
 

@@ -2,5 +2,9 @@ from enum import Enum
 
 class SceneEnum(Enum):
     MAINMENU = 1
-    COMBAT = 2 
+    WORLD = 2
+    COMBAT = 3
+
+
+
 
