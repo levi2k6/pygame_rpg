@@ -1,7 +1,7 @@
 from sys import is_finalizing
 from typing import Tuple
 import pygame
-from pygame import Vector2, Surface, Color, Rect
+from pygame import Vector2, Surface, Color, Rect, draw 
 from Entity.entity import Entity
 from Entity.marker import Marker
 from GameState.gameState import GameState
@@ -33,10 +33,22 @@ class RenderSystem:
 
     def renderTile(self, tile: Rect):
         if self.gameState.isPositionShow == True:
-            position: Vector2 = Vector2(tile.x, tile.y)
-            self.renderPosition(position)
-            position2: Vector2 = Vector2(tile.x + tile.width, tile.y + tile.height)
-            self.renderPosition(position2)
+            center: Vector2 = Vector2(tile.centerx, tile.centery)
+            self.renderPosition(center)
+            # topLeft: Vector2 = Vector2(tile.left, tile.top)
+            # self.renderPosition(topLeft)
+            # topRight: Vector2 = Vector2(tile.right, tile.top)
+            # self.renderPosition(topRight)
+            # bottomLeft: Vector2 = Vector2(tile.left, tile.bottom)
+            # self.renderPosition(bottomLeft)
+            # bottomRight: Vector2 = Vector2(tile.right, tile.bottom)
+            # self.renderPosition(bottomRight)
+            color: Color = Color(255, 255, 0)
+            draw.line(self.display.screen, color, tile.topleft, tile.topright)
+            draw.line(self.display.screen, color, tile.topright, tile.bottomright)
+            draw.line(self.display.screen, color, tile.bottomright, tile.bottomleft)
+            draw.line(self.display.screen, color, tile.bottomleft, tile.topleft)
+
 
     def renderPosition(self, position: Vector2):
         print("renderPosition")
@@ -76,10 +88,8 @@ class RenderSystem:
 
     def renderWorldScene(self, scene: WorldScene):
         if len(scene.tiles) != 0:
-            for tile in scene.tiles:
-               self.renderTile(tile)
-                for b in range(scene.tiles):
-                    scene.tiles[b+1].x = tile.width
-
+            print("sceneTiles: ", scene.tiles)
+            for i in range(len(scene.tiles)):
+                self.renderTile(scene.tiles[i])
         pass
 

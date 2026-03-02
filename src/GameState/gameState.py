@@ -12,7 +12,7 @@ class GameState:
         self.setPlayer()
 
         #debugging
-        self.isPositionShow: bool = False
+        self.isPositionShow: bool = True 
 
     def setPlayer(self): 
         position: Vector2 = Vector2(100, 100)

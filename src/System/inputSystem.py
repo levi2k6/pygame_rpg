@@ -33,10 +33,10 @@ class InputSystem:
                     print("q pressed")
                     self.sceneSystem.changeScene(SceneEnum.MAINMENU)
                 if event.key == pygame.K_w:
-                    print("e pressed")
+                    print("w pressed")
                     self.sceneSystem.changeScene(SceneEnum.WORLD)
                 if event.key == pygame.K_e:
-                    print("w pressed")
+                    print("e pressed")
                     self.sceneSystem.changeScene(SceneEnum.COMBAT)
 
             keys = pygame.key.get_pressed()
@@ -49,10 +49,4 @@ class InputSystem:
                 print("a pressed")
                 # LoadedEntities.player.x -= 10
         return True
-
-
-
-
-
-            
 
