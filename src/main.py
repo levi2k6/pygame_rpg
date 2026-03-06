@@ -7,6 +7,7 @@ from Initialization.display import Display
 from Initialization.gameloop import GameLoop 
 from Initialization.assets import Assets
 from Scene.sceneFactory import SceneFactory
+from System.camera import Camera
 from System.inputSystem import InputSystem
 from System.renderSystem import RenderSystem
 from System.sceneSystem import SceneSystem
@@ -16,11 +17,12 @@ pygame.init()
 display: Display = Display( Vector2(800, 800), "pygameRpg")
 assets: Assets = Assets()
 gameState: GameState = GameState(assets)
-renderSystem: RenderSystem = RenderSystem(display, gameState)
+camera: Camera = Camera()
+renderSystem: RenderSystem = RenderSystem(display, gameState, camera)
 
 sceneFactory: SceneFactory = SceneFactory(display, gameState, assets)
 sceneSystem: SceneSystem = SceneSystem(renderSystem, sceneFactory)
-inputSystem: InputSystem = InputSystem(gameState, sceneSystem)
+inputSystem: InputSystem = InputSystem(gameState, sceneSystem, camera)
 
 gameloop: GameLoop = GameLoop(display, inputSystem, sceneSystem)
 

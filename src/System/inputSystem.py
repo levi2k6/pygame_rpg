@@ -2,6 +2,7 @@ import pygame
 
 from GameState import gameState
 from GameState.gameState import GameState
+from System.camera import Camera
 from System.sceneSystem import SceneSystem
 from util.enums.SceneEnum import SceneEnum
 
@@ -11,9 +12,11 @@ class InputSystem:
         self,
         gameState: GameState,
         sceneSystem: SceneSystem,
+        camera: Camera,
     ):
         self.gameState  = gameState
         self.sceneSystem = sceneSystem
+        self.camera = camera
         pass
 
     def detectInput(self, delta) -> bool:
@@ -48,5 +51,11 @@ class InputSystem:
             if keys[pygame.K_a]:
                 print("a pressed")
                 # LoadedEntities.player.x -= 10
+            if keys[pygame.K_RIGHT]:
+                print("going right")
+                self.camera.position.x += 40 
+            if keys[pygame.K_LEFT]:
+                print("going left")
+                self.camera.position.x -= 40
         return True
 

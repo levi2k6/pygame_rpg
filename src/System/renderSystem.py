@@ -7,21 +7,26 @@ from Entity.marker import Marker
 from GameState.gameState import GameState
 from Initialization.display import Display
 from Scene.CombatScene.combatScene import CombatScene
+from Scene.WorldScene.tile import Tile
 from Scene.WorldScene.worldScene import WorldScene
 from Scene.scene import Scene
+from System.camera import Camera
 
 class RenderSystem:
-    def __init__(self, display: Display, gameState: GameState):
+    def __init__(self, display: Display, gameState: GameState, camera: Camera):
         self.display = display
         self.gameState = gameState
+        self.camera = camera
 
     def renderTexture(self, texture: Surface, size: Vector2, position: Vector2):
-        sprite_x = position.x - (size.x / 2) 
-        sprite_y = position.y - (size.y / 2) 
+        sprite_x = (position.x - (size.x / 2)) - self.camera.position.x 
+        sprite_y = (position.y - (size.y / 2)) - self.camera.position.y
         self.display.screen.blit(texture, (sprite_x, sprite_y))
 
     def renderEntity(self, entity: Entity):
-        spriteRect  = entity.form.transformedSprite.get_rect(center=entity.form.position)
+        newEntityPosX = entity.form.position.x - self.camera.position.x
+        newEntityPosY = entity.form.position.y - self.camera.position.y
+        spriteRect  = entity.form.transformedSprite.get_rect(center=(newEntityPosX, newEntityPosY))
         self.display.screen.blit(entity.form.transformedSprite, spriteRect.topleft)
 
         if self.gameState.isPositionShow == True:
@@ -31,9 +36,10 @@ class RenderSystem:
         if self.gameState.isPositionShow == True:
             self.renderPosition(marker.position)
 
-    def renderTile(self, tile: Rect):
+    def renderTile(self, tile: Tile):
         if self.gameState.isPositionShow == True:
-            center: Vector2 = Vector2(tile.centerx, tile.centery)
+            tileRect = tile.rect
+            center: Vector2 = Vector2(tileRect.centerx, tileRect.centery)
             self.renderPosition(center)
             # topLeft: Vector2 = Vector2(tile.left, tile.top)
             # self.renderPosition(topLeft)
@@ -44,16 +50,21 @@ class RenderSystem:
             # bottomRight: Vector2 = Vector2(tile.right, tile.bottom)
             # self.renderPosition(bottomRight)
             color: Color = Color(255, 255, 0)
-            draw.line(self.display.screen, color, tile.topleft, tile.topright)
-            draw.line(self.display.screen, color, tile.topright, tile.bottomright)
-            draw.line(self.display.screen, color, tile.bottomright, tile.bottomleft)
-            draw.line(self.display.screen, color, tile.bottomleft, tile.topleft)
+            topLeft = tileRect.topleft - self.camera.position 
+            topRight = tileRect.topright - self.camera.position
+            bottomRight = tileRect.bottomright - self.camera.position
+            bottomLeft = tileRect.bottomleft - self.camera.position
+
+            draw.line(self.display.screen, color, topLeft, topRight)
+            draw.line(self.display.screen, color, topRight, bottomRight)
+            draw.line(self.display.screen, color, bottomRight, bottomLeft)
+            draw.line(self.display.screen, color, bottomLeft, topLeft)
 
 
     def renderPosition(self, position: Vector2):
-        print("renderPosition")
-        pygame.draw.circle(self.display.screen, Color(255, 0, 0), position, 5)
-
+        # print("renderPosition")
+        newPosition = position - self.camera.position
+        pygame.draw.circle(self.display.screen, Color(255, 0, 0), newPosition, 5)
 
     def renderScene(self, scene: Scene):
         # print("scene: ", type(scene.props))
@@ -62,7 +73,6 @@ class RenderSystem:
                 position: Vector2 = Vector2(self.display.size.x / 2, self.display.size.y)
                 self.renderTexture(background, self.display.size, position)
 
-        print("prop length: ", len(scene.props))
         if not len(scene.props) == 0:
             for prop in scene.props:
                 print("name: ", prop.name)
@@ -88,8 +98,9 @@ class RenderSystem:
 
     def renderWorldScene(self, scene: WorldScene):
         if len(scene.tiles) != 0:
-            print("sceneTiles: ", scene.tiles)
+            # print("sceneTiles: ", scene.tiles)
             for i in range(len(scene.tiles)):
-                self.renderTile(scene.tiles[i])
+                for tile in scene.tiles[i]:
+                    self.renderTile(tile)
         pass
 
