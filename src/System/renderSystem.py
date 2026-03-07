@@ -8,15 +8,18 @@ from GameState.gameState import GameState
 from Initialization.display import Display
 from Scene.CombatScene.combatScene import CombatScene
 from Scene.WorldScene.tile import Tile
+from Scene.WorldScene.tileSystem import TileSystem
 from Scene.WorldScene.worldScene import WorldScene
 from Scene.scene import Scene
 from System.camera import Camera
 
 class RenderSystem:
-    def __init__(self, display: Display, gameState: GameState, camera: Camera):
+    def __init__(self, display: Display, gameState: GameState, camera: Camera, tileSystem: TileSystem):
         self.display = display
         self.gameState = gameState
         self.camera = camera
+        self.tileSystem = tileSystem 
+
 
     def renderTexture(self, texture: Surface, size: Vector2, position: Vector2):
         sprite_x = (position.x - (size.x / 2)) - self.camera.position.x 
@@ -97,10 +100,20 @@ class RenderSystem:
                 self.renderEntity(entity)
 
     def renderWorldScene(self, scene: WorldScene):
-        if len(scene.tiles) != 0:
+        tileSystem: TileSystem = scene.tileSystem 
+
+        if len(tileSystem.tiles) == 0:
+            return
             # print("sceneTiles: ", scene.tiles)
-            for i in range(len(scene.tiles)):
-                for tile in scene.tiles[i]:
-                    self.renderTile(tile)
+
+        for i in range(len(tileSystem.tiles)):
+            for tile in tileSystem.tiles[i]:
+                self.renderTile(tile)
+
+        if tileSystem.traveler != None:
+            traveler = tileSystem.traveler
+            self.renderTexture(traveler.form.transformedSprite, traveler.form.size, traveler.form.position)
+
+
         pass
 

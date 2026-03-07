@@ -7,9 +7,11 @@ from Scene.WorldScene.traveler import Traveler
 from Scene.scene import Scene
 from pygame  import Rect, Surface, Vector2
 
+from System.camera import Camera
 
-class tileSystem: 
-    def __init__(self, assets: Assets):
+
+class TileSystem: 
+    def __init__(self, assets: Assets, camera: Camera):
         super().__init__()
         self.worldWidth = 5 
         self.worldHeight = 5 
@@ -18,9 +20,8 @@ class tileSystem:
         self.tilesHeight: float = 100 
         self.initPos: Vector2 = Vector2(0, 0)
         self.assets = assets
+        self.camera = camera
         self.traveler: Traveler | None = None
-
-        self.generateTiles()
         pass
 
 
@@ -46,17 +47,32 @@ class tileSystem:
         form: Form = Form(position, size, sprite)
         traveler: Traveler = Traveler(form) 
         self.traveler = traveler 
-
+        self.occupyTile(3, 3)
         pass
 
     def occupyTile(self, x: int, y: int):
+
+        if x < 0 or x > self.worldWidth-1:
+            print("boundary x exceeded")
+            return
+        if y < 0 or y > self.worldHeight-1:
+            print("boundary y exceeded")
+            return
+        
+        print("x: ", x)
+        print("y: ", y)
+        print(-self.worldHeight+1)
+
         if self.traveler == None: 
             raise RuntimeError("Traveler does not exists")
+
         targetTile = self.tiles[y][x]
         targetTile.occupy = self.traveler 
         self.traveler.tileX = x
         self.traveler.tileY = y
         newTravlerPosition = Vector2(targetTile.rect.centerx, targetTile.rect.centery)
         self.traveler.form.position = newTravlerPosition
+
+        self.camera.position = self.traveler.form.position
 
 

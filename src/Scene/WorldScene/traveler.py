@@ -1,4 +1,3 @@
-from typing import Tuple
 from Properties.form import Form
 
 class Traveler:

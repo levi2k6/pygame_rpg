@@ -1,52 +1,16 @@
 from typing import List
 
-from Initialization.assets import Assets
-from Properties.form import Form
-from Scene.WorldScene.tile import Tile
-from Scene.WorldScene.traveler import Traveler
-from Scene.scene import Scene
-from pygame  import Rect, Surface, Vector2
+from Scene.WorldScene.tileSystem import TileSystem
+from Scene.scene import Scene 
 
 class WorldScene(Scene):
-    def __init__(self, assets: Assets):
+    def __init__(self, tileSystem: TileSystem):
         super().__init__()
-        self.worldWidth = 5 
-        self.worldHeight = 5 
-        self.tiles: List[List[Rect]] = []
-        self.tilesWidth: float = 100 
-        self.tilesHeight: float = 100 
-        self.initPos: Vector2 = Vector2(0, 0)
-        self.assets = assets
-        self.traveler: Traveler | None = None
+        self.tileSystem = tileSystem
 
-        self.createTiles()
-        pass
+        self.tileSystem.generateTiles()  
+        self.tileSystem.spawnTraveler()
 
-    def createTiles(self):
-        #first tile init 
-        rowY = self.initPos.y
-        rowX = self.initPos.x 
-        for _ in range(self.worldHeight):
-            row: List[Rect] = []
-            for _ in range(self.worldWidth):
-                rect: Rect = Rect(rowX, rowY, self.tilesWidth, self.tilesHeight) 
-                tile: Tile = Tile(rect, self.assets.data["forsen"])
-                row.append(tile.rect)
-                rowX += self.tilesWidth
-            rowY += self.tilesHeight
-            rowX = self.initPos.x
-
-            self.tiles.append(row)
-
-
-    def spawnTraveler(self):
-        position: Vector2 = Vector2(0, 0)
-        size: Vector2 = Vector2(50, 50)
-        sprite: Surface = self.assets.data["forse"]
-        form: Form = Form(position, size, sprite)
-        traveler: Traveler = Traveler(form) 
-        self.traveler = traveler 
-        pass
 
 
 
