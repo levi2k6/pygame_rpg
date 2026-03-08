@@ -73,6 +73,3 @@ class TileSystem:
         newTravlerPosition = Vector2(targetTile.rect.centerx, targetTile.rect.centery)
         self.traveler.form.position = newTravlerPosition
 
-        self.camera.position = self.traveler.form.position
-
-

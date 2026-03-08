@@ -64,9 +64,9 @@ class InputSystem:
                 # LoadedEntities.player.x -= 10
             if keys[pygame.K_RIGHT]:
                 print("going right")
-                self.camera.position.x += 40 
+                self.camera.rect.x += 40 
             if keys[pygame.K_LEFT]:
                 print("going left")
-                self.camera.position.x -= 40
+                self.camera.rect.x -= 40
         return True
 

@@ -12,6 +12,7 @@ from System.camera import Camera
 from System.inputSystem import InputSystem
 from System.renderSystem import RenderSystem
 from System.sceneSystem import SceneSystem
+from System.world import World
 from input.playerInput import PlayerInput
 
 pygame.init()
@@ -19,7 +20,8 @@ pygame.init()
 display: Display = Display( Vector2(800, 800), "pygameRpg")
 assets: Assets = Assets()
 gameState: GameState = GameState(assets)
-camera: Camera = Camera()
+camera: Camera = Camera(display)
+world: World = World()
 tileSystem: TileSystem = TileSystem(assets, camera)
 renderSystem: RenderSystem = RenderSystem(display, gameState, camera, tileSystem)
 

@@ -20,6 +20,13 @@ class RenderSystem:
         self.camera = camera
         self.tileSystem = tileSystem 
 
+    def renderCamera(self):
+        self.renderPosition(Vector2(self.camera.rect.topleft))
+        self.renderPosition(Vector2(self.camera.rect.topright))
+        self.renderPosition(Vector2(self.camera.rect.bottomright))
+        self.renderPosition(Vector2(self.camera.rect.bottomleft))
+        self.renderPosition(Vector2(self.camera.rect.center))
+
 
     def renderTexture(self, texture: Surface, size: Vector2, position: Vector2):
         sprite_x = (position.x - (size.x / 2)) - self.camera.position.x 
@@ -114,6 +121,7 @@ class RenderSystem:
             traveler = tileSystem.traveler
             self.renderTexture(traveler.form.transformedSprite, traveler.form.size, traveler.form.position)
 
+        self.renderCamera()
 
         pass
 
