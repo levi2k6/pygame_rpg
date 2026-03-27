@@ -1,18 +1,20 @@
-
 from Scene.WorldScene.traveler import Traveler
 from render.camera import Camera
-from world.entities.human import Human
-from gameState.player import Player
-from world.team import Team
 
 
-class SimulateBasic:
+class CameraSystem:
     def __init__(self, camera: Camera, traveler: Traveler):
         self.camera = camera
         self.traveler = traveler 
 
 
-    def simulateWorldCamera(self):
+    def simulateWorld(self):
         self.camera.position = self.traveler.form.position
+
+
+    def resetCamera(self): 
+        self.camera.position.x = 0 
+        self.camera.position.y = 0
+
 
 

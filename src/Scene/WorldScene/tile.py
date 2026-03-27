@@ -1,6 +1,5 @@
 from pygame import Rect, Surface 
 
-from Entity.entity import Entity
 from Scene.WorldScene.traveler import Traveler
 
 class Tile:

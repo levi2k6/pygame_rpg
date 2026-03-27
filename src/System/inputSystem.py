@@ -1,11 +1,10 @@
 import pygame
 
-from GameState import gameState
-from GameState.gameState import GameState
+from gameState import GameState
+from gameState.gameState import GameState
 from System.camera import Camera
 from System.sceneSystem import SceneSystem
-from input import playerInput
-from input.playerInput import PlayerInput
+from inputs.import playerInput
 from util.enums.SceneEnum import SceneEnum
 
 

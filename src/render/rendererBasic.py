@@ -1,18 +1,14 @@
 import pygame
 from pygame import Color, Rect, Surface, Vector2, draw
-from Entity.entity import Entity
-from GameState.gameState import GameState
+from gameState.gameState import GameState
 from Initialization.display import Display
-from Scene.WorldScene.tileSystem import TileSystem
-from System.camera import Camera
+from render.camera import Camera
 
-
-class rendererBasic():
-    def __init__(self, display: Display, gameState: GameState, camera: Camera, tileSystem: TileSystem):
+class RendererBasic():
+    def __init__(self, gameState: GameState,display: Display, camera: Camera):
         self.display = display
         self.gameState = gameState
         self.camera = camera
-        self.tileSystem = tileSystem 
 
     def renderCamera(self):
         self.renderPosition(Vector2(self.camera.rect.topleft))
@@ -25,15 +21,6 @@ class rendererBasic():
         sprite_x = (position.x - (size.x / 2)) - self.camera.position.x 
         sprite_y = (position.y - (size.y / 2)) - self.camera.position.y
         self.display.screen.blit(texture, (sprite_x, sprite_y))
-
-    def renderEntity(self, entity: Entity):
-        newEntityPosX = entity.form.position.x - self.camera.position.x
-        newEntityPosY = entity.form.position.y - self.camera.position.y
-        spriteRect  = entity.form.transformedSprite.get_rect(center=(newEntityPosX, newEntityPosY))
-        self.display.screen.blit(entity.form.transformedSprite, spriteRect.topleft)
-
-        if self.gameState.isPositionShow == True:
-            self.renderPosition(entity.form.position)
 
     def renderPosition(self, position: Vector2):
         # print("renderPosition")

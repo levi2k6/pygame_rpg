@@ -1,5 +1,5 @@
 from Entity.entity import Entity
-from GameState.gameState import GameState
+from gameState.gameState import GameState
 from Initialization.assets import Assets
 from Initialization.display import Display
 from Scene.CombatScene.combatScene import CombatScene
