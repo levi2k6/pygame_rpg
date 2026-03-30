@@ -3,10 +3,10 @@ from pygame import Vector2
 from world.entities.entity import Entity
 from world.entities.human import Human
 from world.entities.marker import Marker
-from gameState.gameState import GameState
+from core.gameState import GameState
 from Initialization.display import Display
 from simulation.spawnSystem import SpawnSystem 
-from gameState.player import Player
+from core.player import Player
 from world.team import Team
 
 

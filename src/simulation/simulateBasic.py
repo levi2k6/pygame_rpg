@@ -2,7 +2,7 @@
 from Scene.WorldScene.traveler import Traveler
 from render.camera import Camera
 from world.entities.human import Human
-from gameState.player import Player
+from core.player import Player
 from world.team import Team
 
 

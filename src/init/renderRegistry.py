@@ -1,5 +1,7 @@
-from gameState.gameState import GameState
+from pygame import CONTROLLER_AXIS_TRIGGERRIGHT
+from core.gameState import GameState
 from Initialization.display import Display
+from init.coreRegistry import CoreRegistry
 from render.camera import Camera
 from render.rendererBasic import RendererBasic
 from render.rendererWorld import RendererWorld
@@ -7,10 +9,14 @@ from world.world import World
 
 
 class RenderRegistry:
-    def __init__(self, gameState: GameState, display: Display, world: World, camera: Camera):
-        self.rendererBasic = self.initRendererBasic(gameState, display, camera)
-        self.rendererWorld = self.initRendererWorld(gameState, display, world, camera)
+    def __init__(self, coreRegistry: CoreRegistry, world: World):
+        self.camera = self.initCamera(coreRegistry.display)
+        self.rendererBasic = self.initRendererBasic(coreRegistry.gameState, coreRegistry.display, self.camera)
+        self.rendererWorld = self.initRendererWorld(coreRegistry.gameState, coreRegistry.display, world, self.camera)
         pass
+
+    def initCamera(self, display: Display): 
+        return Camera(display) 
 
     def initRendererBasic(self, gameState: GameState, display: Display, camera: Camera): 
         return RendererBasic(gameState, display, camera)

@@ -6,8 +6,7 @@ from Initialization.assets import Assets
 from Properties.form import Form
 
 class GameState: 
-    def __init__(self, assets: Assets, currentScene: EnumScene):
-        self.assets = assets 
+    def __init__(self, currentScene: EnumScene):
         self.currentScene: EnumScene = currentScene
 
         #debugging

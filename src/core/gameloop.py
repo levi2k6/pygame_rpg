@@ -1,7 +1,8 @@
 import pygame
 from Initialization.display import Display
 from enums.enumScene import EnumScene
-from gameState.gameState import GameState
+from core.gameState import GameState
+from init.coreRegistry import CoreRegistry
 from init.renderRegistry import RenderRegistry
 from inputs.inputRegistry import InputRegistry
 from render.rendererBasic import RendererBasic
@@ -15,16 +16,15 @@ class GameLoop:
 
     def __init__(
         self, 
-        display: Display,
-        gameState: GameState,
+        coreRegistry: CoreRegistry,
         inputRegistry: InputRegistry, 
         renderRegistry: RenderRegistry 
      ) -> None:
-        self.display: Display = display;
+        self.display: Display = coreRegistry.display;
         self.clock = pygame.time.Clock()
         self.isRunning = True
         self.inputRegistry = inputRegistry
-        self.gameState = gameState
+        self.gameState = coreRegistry.gameState
 
     def startGameloop(self):
         while self.isRunning:
@@ -60,6 +60,8 @@ class GameLoop:
                         print("key does not exists")
                         return
                     inputFunc.func()
+    def ui(self):
+        pass
 
     def simulate(self):
         pass
@@ -67,6 +69,7 @@ class GameLoop:
 
     def renderScene(self):
         pass
+
 
 
 

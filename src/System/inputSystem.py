@@ -1,7 +1,7 @@
 import pygame
 
 from gameState import GameState
-from gameState.gameState import GameState
+from core.gameState import GameState
 from System.camera import Camera
 from System.sceneSystem import SceneSystem
 from inputs.import playerInput

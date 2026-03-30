@@ -4,7 +4,7 @@ import pygame
 from pygame import Vector2, Surface, Color, Rect, draw 
 from Entity.entity import Entity
 from Entity.marker import Marker
-from gameState.gameState import GameState
+from core.gameState import GameState
 from Initialization.display import Display
 from Scene.CombatScene.combatScene import CombatScene
 from Scene.WorldScene.tile import Tile

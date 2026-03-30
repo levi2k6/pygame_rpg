@@ -1,6 +1,6 @@
 from pygame import Vector2
 
-from gameState.gameState import GameState
+from core.gameState import GameState
 from Initialization.display import Display
 from Scene.CombatScene.combatSystem import CombatSystem
 from Scene.CombatScene.spawnSystem import SpawnSystem

@@ -3,7 +3,7 @@ from serialization import serializationUtil
 from serialization.serializationPlayer import SerializationPlayer
 from serialization.serializationUtil import SerializationUtil
 from world.entities.human import Human
-from gameState.player import Player
+from core.player import Player
 from world.team import Team
 
 

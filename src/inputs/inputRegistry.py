@@ -1,6 +1,6 @@
 import pygame
 from gameState import gameState
-from gameState.gameState import GameState
+from core.gameState import GameState
 from inputs.inputFunction import InputFunction 
 from inputs.inputMenu import InputMenu
 from inputs.inputWorld import InputWorld

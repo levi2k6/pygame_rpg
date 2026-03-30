@@ -1,7 +1,7 @@
 
 
 from enums.enumScene import EnumScene
-from gameState.gameState import GameState
+from core.gameState import GameState
 
 
 class InputWorld:

@@ -1,6 +1,6 @@
 
 from enums.enumScene import EnumScene
-from gameState.gameState import GameState
+from core.gameState import GameState
 from init.serializationRegistry import SerializationRegistry
 from serialization.serializationPlayer import SerializationPlayer
 
@@ -16,6 +16,7 @@ class InputMenu:
     
     def navigateWorld(self): 
         self.gameState.currentScene = EnumScene.WORLD 
+
 
 
     

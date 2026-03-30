@@ -1,31 +1,30 @@
 
-from gameState.gameState import GameState
 from Initialization.assets import Assets
+from assets.assetsRegistry import AssetsRegistry
+from core.gameState import GameState
 from Initialization.display import Display
 from Scene.WorldScene.traveler import Traveler
+from init.coreRegistry import CoreRegistry
+from init.worldRegistry import WorldRegistry
 from render.camera import Camera
 from simulation.cameraSystem import CameraSystem
 from simulation.combatSystem import CombatSystem
 from simulation.spawnSystem import SpawnSystem
 from simulation.tilesSystem import TileSystem
-from gameState.player import Player
+from core.player import Player
 from world.world import World
 
 
 class SimulationRegistry: 
 
-    def __init__(self, display: Display, gameState: GameState, assets: Assets, world: World, camera: Camera, traveler: Traveler, player: Player):
-        self.cameraSystem: CameraSystem = self.initCameraSystem(camera, traveler)
-        self.tilesSystem: TileSystem = self.initTileSystem(world, assets)
-        self.spawnSystem: SpawnSystem = self.initSpawnSystem(assets)
-        self.combatSystem: CombatSystem = self.initCombatSystem(gameState, display, player)
+    def __init__(self, coreRegistry: CoreRegistry,  assetsRegistry: AssetsRegistry, worldRegistry: WorldRegistry):
+        self.tilesSystem: TileSystem = self.initTileSystem(worldRegistry.world, assetsRegistry.textures)
+        self.spawnSystem: SpawnSystem = self.initSpawnSystem(assetsRegistry.textures)
+        self.combatSystem: CombatSystem = self.initCombatSystem(coreRegistry.gameState, coreRegistry.display, coreRegistry.player)
         pass
 
-    def initCameraSystem(self, camera: Camera, traveler: Traveler):
-        return CameraSystem(camera, traveler)
-
-    def initTileSystem(self, world: World, assets: Assets):
-        return TileSystem(world, assets)
+    def initTileSystem(self, world: World, textures: dict):
+        return TileSystem(world, textures)
 
     def initSpawnSystem(self, assets):
         return SpawnSystem(assets)

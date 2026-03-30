@@ -1,7 +1,7 @@
 
 
 from pygame import Color, draw
-from gameState.gameState import GameState
+from core.gameState import GameState
 from Initialization.display import Display
 from Scene.WorldScene.traveler import Traveler
 from render.camera import Camera

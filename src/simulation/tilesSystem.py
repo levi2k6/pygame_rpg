@@ -10,9 +10,9 @@ from world.world import World
 
 class TileSystem:
 
-    def __init__(self, world: World, assets: Assets):
+    def __init__(self, world: World, textures: dict):
         self.world = world
-        self.assets = assets
+        self.textures = textures 
 
     def generateTiles(self): 
         rowY = self.world.tileInitPos.y
@@ -21,7 +21,7 @@ class TileSystem:
             row: List[Tile] = []
             for _ in range(self.world.width):
                 rect: Rect = Rect(rowX, rowY, self.world.width, self.world.height)
-                tile: Tile = Tile(rect, self.assets.data["forsen"])
+                tile: Tile = Tile(rect, self.textures["forsen"])
                 row.append(tile)
                 rowX += self.world.width
             rowY += self.world.height
