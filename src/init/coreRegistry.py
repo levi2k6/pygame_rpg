@@ -1,6 +1,7 @@
 from pygame import Rect, Vector2, display
 from pygame_gui import UIManager
 from Initialization.display import Display
+from core.eventHandler import EventHandler
 from core.player import Player
 from enums.enumScene import EnumScene
 from core.gameState import GameState

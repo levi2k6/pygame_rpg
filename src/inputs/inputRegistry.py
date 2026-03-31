@@ -1,5 +1,4 @@
 import pygame
-from gameState import gameState
 from core.gameState import GameState
 from inputs.inputFunction import InputFunction 
 from inputs.inputMenu import InputMenu
@@ -25,9 +24,12 @@ class InputRegistry:
                 pygame.K_e: InputFunction("Test", self.inputWorld.test)
         }
 
+
     def initInputMenu(self, gameState: GameState, serializationPlayer: SerializationPlayer):
         return InputMenu(gameState, serializationPlayer)
 
     def initInputWorld(self, gameState):
         return InputWorld(gameState)
+
+
 

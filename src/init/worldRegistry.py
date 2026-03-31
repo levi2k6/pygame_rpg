@@ -1,21 +1,20 @@
 from typing import Dict
 from pygame import Rect, Vector2
-from Initialization.assets import Assets
 from Initialization.display import Display
 from Properties.form import Form
 from Scene.WorldScene.traveler import Traveler
-from assets import assetsRegistry
-from assets.assetsRegistry import AssetsRegistry
+from loadedAssets.assetsRegistry import AssetsRegistry
+from init.coreRegistry import CoreRegistry
 from world.combatScene import CombatScene
 from world.world import World
 
 class WorldRegistry:
 
-    def __init__(self, assetsRegistry: AssetsRegistry, display: Display):
+    def __init__(self, coreRegistry: CoreRegistry, assetsRegistry: AssetsRegistry):
         self.initWorld(assetsRegistry.textures)
-        self.initCombatScene(display)
+        self.initCombatScene(coreRegistry.display)
 
-    def initWorld(self, assets: Dict):
+    def initWorld(self, textures: Dict):
         rect: Rect = Rect(0, 0, 1000, 1000) 
         width: int = 5 
         height: int = 5
@@ -23,7 +22,7 @@ class WorldRegistry:
         tilesHeight: float = 100
         tileOrigin: Vector2 = Vector2(0, 0)
 
-        form: Form = Form(Vector2(0, 0), Vector2(20, 20), assets["forsen"])
+        form: Form = Form(Vector2(0, 0), Vector2(20, 20), textures["forsen"])
         traveler: Traveler = Traveler(form) 
 
         self.world: World = World(rect, width, height, tilesWidth, tilesHeight, tileOrigin, traveler)

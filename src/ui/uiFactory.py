@@ -1,7 +1,7 @@
 
 from pygame import Rect, Vector2
+from pygame_gui import UIManager
 from pygame_gui.elements import UIButton
-from core.uiManager import UIManager 
 
 
 class UIFactory:
@@ -12,8 +12,9 @@ class UIFactory:
 
     def button(self, position: Vector2, size: Vector2, uiText: str): 
         rect: Rect = Rect(position, size)
-        return UIButton(relative_rect=rect, text=uiText, manager=self.uiManager.manager)
+        return UIButton(relative_rect=rect, text=uiText, manager=self.uiManager)
 
+     
 
 
     pass

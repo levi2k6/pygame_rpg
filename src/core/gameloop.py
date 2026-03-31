@@ -1,14 +1,14 @@
+from typing import List
 import pygame
+from pygame import Event, Surface
+from pygame_gui import UIManager
 from Initialization.display import Display
 from enums.enumScene import EnumScene
 from core.gameState import GameState
+from init import coreRegistry
 from init.coreRegistry import CoreRegistry
 from init.renderRegistry import RenderRegistry
 from inputs.inputRegistry import InputRegistry
-from render.rendererBasic import RendererBasic
-from render.rendererWorld import RendererWorld
-from simulation.cameraSystem import CameraSystem
-from simulation.simulateBasic import SimulateBasic
 
 clock = pygame.time.Clock()
 
@@ -25,50 +25,27 @@ class GameLoop:
         self.isRunning = True
         self.inputRegistry = inputRegistry
         self.gameState = coreRegistry.gameState
+        self.uiManager = coreRegistry.uiManager
+        self.rendererUi = renderRegistry.rendererUi
+
 
     def startGameloop(self):
         while self.isRunning:
 
-            self.processEvent()
-            self.simulate()
-            self.renderScene()
-
             self.display.screen.fill((0,0,0))
             delta = self.clock.tick(60) / 1000.0
+
+            events: List[Event] = pygame.event.get()
+
+            self.simulate()
+            self.rendererUi.renderUi(self.uiManager, events, self.display, delta)
 
             pygame.display.flip()
 
 
-    def processEvent(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.isRunning = False
-
-            print("currentScene: ", self.gameState.currentScene)
-            
-            if event.type == pygame.KEYDOWN:
-                if self.gameState.currentScene == EnumScene.MENU: 
-                    inputFunc = self.inputRegistry.menuInputs.get(event.key)
-                    if inputFunc == None:
-                        print("key does not exists")
-                        return
-                    inputFunc.func()
-
-                elif self.gameState.currentScene == EnumScene.WORLD:
-                    inputFunc = self.inputRegistry.worldInputs.get(event.key)
-                    if inputFunc == None:
-                        print("key does not exists")
-                        return
-                    inputFunc.func()
-    def ui(self):
-        pass
-
     def simulate(self):
         pass
 
-
-    def renderScene(self):
-        pass
 
 
 

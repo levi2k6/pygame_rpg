@@ -1,6 +1,6 @@
 
 from Initialization.assets import Assets
-from assets.assetsRegistry import AssetsRegistry
+from loadedAssets.assetsRegistry import AssetsRegistry
 from core.gameState import GameState
 from Initialization.display import Display
 from Scene.WorldScene.traveler import Traveler

@@ -4,6 +4,7 @@ from Initialization.display import Display
 from init.coreRegistry import CoreRegistry
 from render.camera import Camera
 from render.rendererBasic import RendererBasic
+from render.rendererUi import RendererUI
 from render.rendererWorld import RendererWorld
 from world.world import World
 
@@ -13,6 +14,7 @@ class RenderRegistry:
         self.camera = self.initCamera(coreRegistry.display)
         self.rendererBasic = self.initRendererBasic(coreRegistry.gameState, coreRegistry.display, self.camera)
         self.rendererWorld = self.initRendererWorld(coreRegistry.gameState, coreRegistry.display, world, self.camera)
+        self.rendererUi = self.initRendererUI() 
         pass
 
     def initCamera(self, display: Display): 
@@ -24,3 +26,5 @@ class RenderRegistry:
     def initRendererWorld(self, gameState: GameState, display: Display, world: World, camera: Camera):
         return RendererWorld(gameState, display, self.rendererBasic,  world, camera)
 
+    def initRendererUI(self):
+        return RendererUI() 

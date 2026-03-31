@@ -1,24 +1,16 @@
-from assets.assetsRegistry import AssetsRegistry
+from loadedAssets.assetsRegistry import AssetsRegistry
 from init.coreRegistry import CoreRegistry 
-from inputs import inputMenu
 from inputs.inputRegistry import InputRegistry
 import pygame
-from pygame import Vector2
 import sys
 
-# from core.gameState import GameState
-from Initialization.display import Display 
 from core.gameloop import GameLoop
-from Initialization.assets import Assets
 from init.renderRegistry import RenderRegistry
 from init.serializationRegistry import SerializationRegistry
 from init.simulationRegistry import SimulationRegistry
 from init.worldRegistry import WorldRegistry
 
 pygame.init()
-
-display: Display = Display((800, 800), "pygameRpg")
-assets: Assets = Assets()
 
 assetsRegistry: AssetsRegistry = AssetsRegistry()
 coreRegistry: CoreRegistry = CoreRegistry()
@@ -28,7 +20,7 @@ serializationRegistry: SerializationRegistry = SerializationRegistry(coreRegistr
 
 inputRegistry: InputRegistry = InputRegistry(coreRegistry.gameState, serializationRegistry.serializationPlayer)
 
-worldRegistry: WorldRegistry = WorldRegistry(assetsRegistry, display)
+worldRegistry: WorldRegistry = WorldRegistry(coreRegistry, assetsRegistry)
 
 simulationRegistry: SimulationRegistry = SimulationRegistry(coreRegistry, assetsRegistry, worldRegistry) 
 
