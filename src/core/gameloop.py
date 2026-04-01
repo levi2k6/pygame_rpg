@@ -8,7 +8,9 @@ from core.gameState import GameState
 from init import coreRegistry
 from init.coreRegistry import CoreRegistry
 from init.renderRegistry import RenderRegistry
+from init.simulationRegistry import SimulationRegistry
 from inputs.inputRegistry import InputRegistry
+from ui.uiRegistry import UIRegistry
 
 clock = pygame.time.Clock()
 
@@ -18,14 +20,17 @@ class GameLoop:
         self, 
         coreRegistry: CoreRegistry,
         inputRegistry: InputRegistry, 
-        renderRegistry: RenderRegistry 
+        uiRegistry: UIRegistry,
+        simulationRegistry: SimulationRegistry, 
+        renderRegistry: RenderRegistry,
      ) -> None:
         self.display: Display = coreRegistry.display;
         self.clock = pygame.time.Clock()
         self.isRunning = True
         self.inputRegistry = inputRegistry
         self.gameState = coreRegistry.gameState
-        self.uiManager = coreRegistry.uiManager
+        self.uiManager = uiRegistry.uiManager 
+        self.simulationRegistry = simulationRegistry
         self.rendererUi = renderRegistry.rendererUi
 
 
@@ -35,13 +40,14 @@ class GameLoop:
             self.display.screen.fill((0,0,0))
             delta = self.clock.tick(60) / 1000.0
 
-            events: List[Event] = pygame.event.get()
+            events = pygame.event.get()
+            
+            self.isRunning = self.simulationRegistry.eventHandler.processEvent(events)
 
             self.simulate()
-            self.rendererUi.renderUi(self.uiManager, events, self.display, delta)
+            self.rendererUi.renderUi(self.uiManager, self.display, delta)
 
             pygame.display.flip()
-
 
     def simulate(self):
         pass

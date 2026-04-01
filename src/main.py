@@ -9,6 +9,7 @@ from init.renderRegistry import RenderRegistry
 from init.serializationRegistry import SerializationRegistry
 from init.simulationRegistry import SimulationRegistry
 from init.worldRegistry import WorldRegistry
+from ui.uiRegistry import UIRegistry
 
 pygame.init()
 
@@ -20,13 +21,16 @@ serializationRegistry: SerializationRegistry = SerializationRegistry(coreRegistr
 
 inputRegistry: InputRegistry = InputRegistry(coreRegistry.gameState, serializationRegistry.serializationPlayer)
 
+uiRegistry: UIRegistry = UIRegistry(coreRegistry.display, inputRegistry)
+
 worldRegistry: WorldRegistry = WorldRegistry(coreRegistry, assetsRegistry)
 
-simulationRegistry: SimulationRegistry = SimulationRegistry(coreRegistry, assetsRegistry, worldRegistry) 
+simulationRegistry: SimulationRegistry = SimulationRegistry(coreRegistry, assetsRegistry, worldRegistry, inputRegistry, uiRegistry) 
 
-renderRegistry: RenderRegistry = RenderRegistry(coreRegistry, worldRegistry.world)
+renderRegistry: RenderRegistry = RenderRegistry(coreRegistry, worldRegistry, uiRegistry)
 
-gameloop: GameLoop = GameLoop(coreRegistry, inputRegistry, renderRegistry)
+gameloop: GameLoop = GameLoop(coreRegistry, inputRegistry, uiRegistry, simulationRegistry, renderRegistry)
+
 gameloop.startGameloop()
 
 

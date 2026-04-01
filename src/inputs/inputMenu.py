@@ -17,6 +17,8 @@ class InputMenu:
     def navigateWorld(self): 
         self.gameState.currentScene = EnumScene.WORLD 
 
+    def menuTest(self): 
+        print("test test menu")
 
 
     
