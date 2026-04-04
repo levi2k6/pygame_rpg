@@ -3,14 +3,14 @@ from pygame import Vector2
 from world.entities.entity import Entity
 from world.entities.human import Human
 from world.entities.marker import Marker
-from core.gameState import GameState
-from Initialization.display import Display
-from simulation.spawnSystem import SpawnSystem 
-from core.player import Player
-from world.team import Team
+from game.state.gameState import GameState
+from core.display import Display
+from simulation.simulationSpawn import SpawnSystem 
+from game.state.player import Player
+from game.state.team import Team
 
 
-class CombatSystem:
+class SimulationCombat:
 
     def __init__(self, gameState: GameState, spawnSystem: SpawnSystem, display: Display, player: Player):
         super().__init__()

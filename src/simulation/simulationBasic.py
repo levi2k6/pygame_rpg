@@ -1,12 +1,12 @@
 
-from Scene.WorldScene.traveler import Traveler
+from world.traveler import Traveler
 from render.camera import Camera
 from world.entities.human import Human
-from core.player import Player
-from world.team import Team
+from game.state.player import Player
+from game.state.team import Team
 
 
-class SimulateBasic:
+class SimulationBasic:
     def __init__(self, camera: Camera, traveler: Traveler):
         self.camera = camera
         self.traveler = traveler 

@@ -2,21 +2,21 @@
 from pygame import Rect, Vector2
 from pygame_gui.elements import UIButton
 
-from inputs.inputFunction import InputFunction
-from inputs.inputMenu import InputMenu
+from enums.enumActionBasic import EnumActionBasic
+from enums.enumActionMenu import EnumActionMenu
 from ui.uiFactory import UIFactory
 
 
 class UIMenu:
 
-    def __init__(self, uiFactory: UIFactory, inputMenu: InputMenu):
+    def __init__(self, uiFactory: UIFactory):
 
-        playButton = uiFactory.button(Vector2(30, 30), Vector2(200, 50), "Click", "#playButton") 
-        testButton = uiFactory.button(Vector2(30, 100), Vector2(200, 50), "Click", "#testButton")
+        self.playButton  = uiFactory.button(Vector2(30, 30), Vector2(200, 50), "Click", "#playButton"),
+        self.menuTest = uiFactory.button(Vector2(30, 100), Vector2(200, 50), "Click", "#menuTest")
 
-        self.uis = {
-            playButton: InputFunction("Play game", inputMenu.playGame),
-            testButton: InputFunction("Test", inputMenu.menuTest)
+        self.ations = {
+            self.playButton: EnumActionBasic.NAVIGATE_WORLD,
+            self.menuTest: EnumActionMenu.TEST
         }
 
     pass

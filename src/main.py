@@ -1,10 +1,13 @@
+from game.gameInit import GameInit
+from game.gameExit import GameExit
+from init.gameStateRegistry import StateRegistry 
 from loadedAssets.assetsRegistry import AssetsRegistry
 from init.coreRegistry import CoreRegistry 
 from inputs.inputRegistry import InputRegistry
 import pygame
 import sys
 
-from core.gameloop import GameLoop
+from game.gameloop import GameLoop
 from init.renderRegistry import RenderRegistry
 from init.serializationRegistry import SerializationRegistry
 from init.simulationRegistry import SimulationRegistry
@@ -13,26 +16,30 @@ from ui.uiRegistry import UIRegistry
 
 pygame.init()
 
-assetsRegistry: AssetsRegistry = AssetsRegistry()
+#inits
 coreRegistry: CoreRegistry = CoreRegistry()
 
-serializationRegistry: SerializationRegistry = SerializationRegistry(coreRegistry.player)
-# print("teams: ", player.teams)
+assetsRegistry: AssetsRegistry = AssetsRegistry()
 
-inputRegistry: InputRegistry = InputRegistry(coreRegistry.gameState, serializationRegistry.serializationPlayer)
+stateRegistry: StateRegistry = StateRegistry()
+
+serializationRegistry: SerializationRegistry = SerializationRegistry(coreRegistry.player)
+
+inputRegistry: InputRegistry = InputRegistry(stateRegistry, serializationRegistry.serializationPlayer)
 
 uiRegistry: UIRegistry = UIRegistry(coreRegistry.display, inputRegistry)
 
 worldRegistry: WorldRegistry = WorldRegistry(coreRegistry, assetsRegistry)
 
-simulationRegistry: SimulationRegistry = SimulationRegistry(coreRegistry, assetsRegistry, worldRegistry, inputRegistry, uiRegistry) 
+simulationRegistry: SimulationRegistry = SimulationRegistry(coreRegistry, stateRegistry, assetsRegistry, worldRegistry, inputRegistry, uiRegistry) 
 
-renderRegistry: RenderRegistry = RenderRegistry(coreRegistry, worldRegistry, uiRegistry)
+renderRegistry: RenderRegistry = RenderRegistry(coreRegistry, stateRegistry, worldRegistry, uiRegistry)
 
-gameloop: GameLoop = GameLoop(coreRegistry, inputRegistry, uiRegistry, simulationRegistry, renderRegistry)
+#game life cycle
+gameInit: GameInit = GameInit(simulationRegistry)
+gameloop: GameLoop = GameLoop(coreRegistry, stateRegistry, inputRegistry, uiRegistry, simulationRegistry, renderRegistry)
+gameExit: GameExit = GameExit()
 
-gameloop.startGameloop()
-
-
+#end
 pygame.quit()
 sys.exit()

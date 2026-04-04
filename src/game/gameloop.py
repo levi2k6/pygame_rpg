@@ -1,12 +1,7 @@
-from typing import List
 import pygame
-from pygame import Event, Surface
-from pygame_gui import UIManager
-from Initialization.display import Display
-from enums.enumScene import EnumScene
-from core.gameState import GameState
-from init import coreRegistry
+from core.display import Display
 from init.coreRegistry import CoreRegistry
+from init.gameStateRegistry import StateRegistry
 from init.renderRegistry import RenderRegistry
 from init.simulationRegistry import SimulationRegistry
 from inputs.inputRegistry import InputRegistry
@@ -19,6 +14,7 @@ class GameLoop:
     def __init__(
         self, 
         coreRegistry: CoreRegistry,
+        stateRegistry: StateRegistry,
         inputRegistry: InputRegistry, 
         uiRegistry: UIRegistry,
         simulationRegistry: SimulationRegistry, 
@@ -28,10 +24,12 @@ class GameLoop:
         self.clock = pygame.time.Clock()
         self.isRunning = True
         self.inputRegistry = inputRegistry
-        self.gameState = coreRegistry.gameState
+        self.gameState = stateRegistry.gameState
         self.uiManager = uiRegistry.uiManager 
         self.simulationRegistry = simulationRegistry
         self.rendererUi = renderRegistry.rendererUi
+
+        self.startGameloop()
 
 
     def startGameloop(self):

@@ -5,7 +5,7 @@ from pygame import Event
 from pygame_gui import UIManager
 import pygame_gui
 
-from core.gameState import GameState
+from game.state.gameState import GameState
 from enums.enumScene import EnumScene
 from init.coreRegistry import CoreRegistry
 from init.renderRegistry import RenderRegistry
@@ -17,7 +17,7 @@ from ui.uiRegistry import UIRegistry
 from ui.uiWorld import UIWorld
 
 
-class EventHandler:
+class InputHandler:
 
     def __init__(self, gameState: GameState, uiRegistry: UIRegistry, inputRegistry: InputRegistry):
         self.gameState: GameState = gameState 
@@ -44,9 +44,9 @@ class EventHandler:
             inputFunc: InputFunction | None
 
             if self.gameState.currentScene == EnumScene.MENU: 
-                inputFunc = self.inputRegistry.menuInputs.get(event.key)
+                inputFunc = self.inputRegistry.inputMenu.inputs.get(event.key)
             elif self.gameState.currentScene == EnumScene.WORLD:
-                inputFunc = self.inputRegistry.worldInputs.get(event.key)
+                inputFunc = self.inputRegistry.inputWorld.inputs.get(event.key)
 
             if inputFunc == None:
                 print("key does not exists")
@@ -60,8 +60,10 @@ class EventHandler:
             print("ui_element: ", event.ui_element)
 
             if self.gameState.currentScene == EnumScene.MENU:
-                inputFunc = self.uiMenu.uis.get(event.ui_element)
+                action = self.uiMenu.actions.get(event.ui_element)
+                inputFunc = self.inputMenu.inputs[action]
             if self.gameState.currentScene == EnumScene.WORLD:
+                action = self.uiWor
                 inputFunc = self.uiWorld.uis.get(event.ui_element)
 
             if inputFunc == None:

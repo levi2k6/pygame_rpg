@@ -1,7 +1,7 @@
 import pygame
 from pygame import Color, Rect, Surface, Vector2, draw
-from core.gameState import GameState
-from Initialization.display import Display
+from game.state.gameState import GameState
+from core.display import Display
 from render.camera import Camera
 
 class RendererBasic():

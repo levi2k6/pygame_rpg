@@ -1,20 +1,26 @@
 
 
-from enums.enumScene import EnumScene
-from core.gameState import GameState
+from enums.enumActionBasic import EnumActionBasic
+from game.state.gameState import GameState
+from enums.enumActionWorld import EnumActionWorld
+from inputs.inputFunction import InputFunction
 
 
 class InputWorld:
     def __init__(self, gameState: GameState):
         self.gameState = gameState
-        pass
+        self.inputs = {
+            EnumActionBasic.NAVIGATE_MENU: InputFunction("Menu", self.test),
+            EnumActionWorld.TEST: InputFunction("Test", self.worldSomething)
+        }
 
     def test(self): 
         print("no longer saving")
 
-    def navigateMenu(self):
-        print("navigate to menu")
-        self.gameState.currentScene = EnumScene.MENU
+    def worldSomething(self):
+        print("world something")
+
+
 
 
 

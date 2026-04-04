@@ -1,7 +1,7 @@
 from typing import List
 from world.entities.entity import Entity
 from world.entities.human import Human 
-from world.team import Team
+from game.state.team import Team
 
 class Player:
     def __init__(self):

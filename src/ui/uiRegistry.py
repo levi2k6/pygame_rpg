@@ -1,6 +1,6 @@
 
 from pygame_gui import UIManager
-from Initialization.display import Display
+from core.display import Display
 from inputs.inputMenu import InputMenu
 from inputs.inputRegistry import InputRegistry
 from inputs.inputWorld import InputWorld
@@ -14,7 +14,7 @@ class UIRegistry:
     def __init__(self, display: Display, inputRegistry: InputRegistry):
         self.uiManager = self.initUiManager(display)
         self.uiFactory = self.initUiFactory(self.uiManager) 
-        self.uiMenu: UIMenu = self.initUiMenu(self.uiFactory, inputRegistry.inputMenu)
+        self.uiMenu: UIMenu = self.initUiMenu(self.uiFactory)
         self.uiWorld: UIWorld = self.initUiWorld(self.uiFactory, inputRegistry.inputWorld) 
         pass
 
@@ -24,11 +24,11 @@ class UIRegistry:
     def initUiFactory(self, uiManager: UIManager): 
         return UIFactory(uiManager) 
 
-    def initUiMenu(self, uiFactory, inputMenu: InputMenu):
-        return UIMenu(uiFactory, inputMenu)
+    def initUiMenu(self, uiFactory ):
+        return UIMenu(uiFactory)
 
     def initUiWorld(self, uiFactory, inputWorld: InputWorld):
-        return UIWorld(uiFactory, inputWorld)
+        return UIWorld(uiFactory)
 
 
 

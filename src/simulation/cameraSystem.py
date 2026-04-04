@@ -1,4 +1,4 @@
-from Scene.WorldScene.traveler import Traveler
+from world.traveler import Traveler
 from render.camera import Camera
 
 

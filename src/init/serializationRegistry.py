@@ -4,7 +4,7 @@ import sys
 
 from serialization.serializationPlayer import SerializationPlayer
 from serialization.serializationUtil import SerializationUtil
-from core.player import Player
+from game.state.player import Player
 
 
 class SerializationRegistry:

@@ -1,14 +1,13 @@
 
 
 from pygame import Color, draw
-from core.gameState import GameState
-from Initialization.display import Display
-from Scene.WorldScene.traveler import Traveler
+from game.state.gameState import GameState
+from core.display import Display
+from world.traveler import Traveler
 from render.camera import Camera
 from render.rendererBasic import RendererBasic
-from world.combatScene import CombatScene
+from combat.combatScene import CombatScene
 from world.world import World
-
 
 class RendererWorld:
 

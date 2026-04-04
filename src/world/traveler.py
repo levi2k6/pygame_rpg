@@ -1,4 +1,4 @@
-from Properties.form import Form
+from core.form import Form
 
 class Traveler:
 
@@ -7,5 +7,4 @@ class Traveler:
         self.tileX: int
         self.tileY: int
         pass
-
 

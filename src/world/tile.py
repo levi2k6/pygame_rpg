@@ -1,6 +1,6 @@
 from pygame import Rect, Surface 
 
-from Scene.WorldScene.traveler import Traveler
+from world.traveler import Traveler
 
 class Tile:
     def __init__(self, rect: Rect, sprite: Surface):
