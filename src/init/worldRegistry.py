@@ -1,19 +1,19 @@
 from typing import Dict, List
 from pygame import Rect, Vector2
-from core.display import Display
 from core.form import Form
+from game.state.display import Display
+from init.gameStateRegistry import StateRegistry
 from world.tile import Tile
 from world.traveler import Traveler
 from loadedAssets.assetsRegistry import AssetsRegistry
-from init.coreRegistry import CoreRegistry
 from combat.combatScene import CombatScene
 from world.world import World
 
 class WorldRegistry:
 
-    def __init__(self, coreRegistry: CoreRegistry, assetsRegistry: AssetsRegistry):
+    def __init__(self, stateRegistry: StateRegistry, assetsRegistry: AssetsRegistry):
         self.initWorld(assetsRegistry.textures)
-        self.initCombatScene(coreRegistry.display)
+        self.initCombatScene(stateRegistry.settingsState.display)
 
 
     def initWorld(self, textures: Dict):
@@ -50,8 +50,8 @@ class WorldRegistry:
         pass
 
     def initCombatScene(self, display: Display):
-        team1x = display.width / 4
-        team1y = display.height / 2
+        team1x = display.screen.get_width() / 4
+        team1y = display.screen.get_height() / 2
         team1Position = Vector2(team1x, team1y)
 
         team2x = (display.width / 4) * 3

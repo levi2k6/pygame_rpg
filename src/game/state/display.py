@@ -9,14 +9,12 @@ class Display:
         size: Tuple[int, int],
         caption: str
     ) -> None:
-        self.width: int = size[0]
-        self.height: int = size[1]
+        self.screen = pygame.display.set_mode(size)
         self.caption = caption 
         self.startDisplay()
         pass 
 
     def startDisplay(self):
-        self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption(self.caption)
 
 

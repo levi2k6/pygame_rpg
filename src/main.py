@@ -17,23 +17,24 @@ from ui.uiRegistry import UIRegistry
 pygame.init()
 
 #inits
-coreRegistry: CoreRegistry = CoreRegistry()
-
 assetsRegistry: AssetsRegistry = AssetsRegistry()
+
+coreRegistry: CoreRegistry = CoreRegistry()
 
 stateRegistry: StateRegistry = StateRegistry()
 
-serializationRegistry: SerializationRegistry = SerializationRegistry(coreRegistry.player)
+serializationRegistry: SerializationRegistry = SerializationRegistry(stateRegistry.gameState.player)
 
 inputRegistry: InputRegistry = InputRegistry(stateRegistry, serializationRegistry.serializationPlayer)
 
-uiRegistry: UIRegistry = UIRegistry(coreRegistry.display, inputRegistry)
+uiRegistry: UIRegistry = UIRegistry(stateRegistry.settingsState.display, inputRegistry)
 
-worldRegistry: WorldRegistry = WorldRegistry(coreRegistry, assetsRegistry)
+worldRegistry: WorldRegistry = WorldRegistry(stateRegistry, assetsRegistry)
 
-simulationRegistry: SimulationRegistry = SimulationRegistry(coreRegistry, stateRegistry, assetsRegistry, worldRegistry, inputRegistry, uiRegistry) 
+simulationRegistry: SimulationRegistry = SimulationRegistry(stateRegistry, assetsRegistry, worldRegistry, uiRegistry) 
 
-renderRegistry: RenderRegistry = RenderRegistry(coreRegistry, stateRegistry, worldRegistry, uiRegistry)
+renderRegistry: RenderRegistry = RenderRegistry(stateRegistry, worldRegistry, uiRegistry)
+
 
 #game life cycle
 gameInit: GameInit = GameInit(simulationRegistry)

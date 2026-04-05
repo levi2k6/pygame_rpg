@@ -14,7 +14,7 @@ class InputMenu:
         self.serializationPlayer: SerializationPlayer = serializationPlayer 
         self.inputs = {
             EnumActionMenu.CREATE_CHARACTER: InputFunction("Create Character", self.serializationPlayer.saveTeam), 
-            EnumActionMenu.TEST: InputFunction("menuSomething", self.menuSomething) 
+            EnumActionMenu.TEST: InputFunction("menuSomething", self.menuSomething),
         }
 
     def menuSomething(self): 

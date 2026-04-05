@@ -1,7 +1,9 @@
 import pygame
+from game.state import gameState
 from game.state.gameState import GameState
 from inputs.inputBasic import InputBasic
 from inputs.inputCustom import InputCustom
+from inputs.inputHandler import InputHandler
 from inputs.inputMenu import InputMenu
 from inputs.inputWorld import InputWorld
 from serialization.serializationPlayer import SerializationPlayer
@@ -24,7 +26,6 @@ class InputRegistry:
     def initInputWorld(self, gameState):
         return InputWorld(gameState)
 
-
     def initInputCustom(self, inputBasic: InputBasic, inputMenu: InputMenu, inputWorld: InputWorld):
         initCustom = InputCustom()
 
@@ -35,4 +36,3 @@ class InputRegistry:
             ]
 
             
-

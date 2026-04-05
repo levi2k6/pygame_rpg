@@ -1,5 +1,3 @@
-
-
 from init.simulationRegistry import SimulationRegistry
 from init.worldRegistry import WorldRegistry
 from simulation.simulationMovement import SimulationMovement

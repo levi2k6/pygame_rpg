@@ -1,5 +1,7 @@
 
+from typing import Dict
 from pygame import Rect, Vector2
+from pygame_gui.core import UIElement
 from pygame_gui.elements import UIButton
 
 from enums.enumActionBasic import EnumActionBasic
@@ -11,10 +13,15 @@ class UIMenu:
 
     def __init__(self, uiFactory: UIFactory):
 
-        self.playButton  = uiFactory.button(Vector2(30, 30), Vector2(200, 50), "Click", "#playButton"),
+        self.playButton  = uiFactory.button(Vector2(30, 30), Vector2(200, 50), "Click", "#playButton")
         self.menuTest = uiFactory.button(Vector2(30, 100), Vector2(200, 50), "Click", "#menuTest")
 
-        self.ations = {
+        self.uis = [
+                self.playButton,
+                self.menuTest
+        ]
+
+        self.actions: Dict[UIElement, EnumActionMenu | EnumActionBasic] = {
             self.playButton: EnumActionBasic.NAVIGATE_WORLD,
             self.menuTest: EnumActionMenu.TEST
         }

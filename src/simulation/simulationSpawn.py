@@ -4,7 +4,7 @@ from world.entities.goblin import Goblin
 from loadedAssets.assetsRegistry import AssetsRegistry 
 from core.form import Form
 
-class SpawnSystem:
+class SimulationSpawn:
 
     def __init__(self):
         pass

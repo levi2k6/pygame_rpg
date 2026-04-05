@@ -1,10 +1,11 @@
+from typing import Dict
 
-
-
+from pygame_gui.core import UIElement
 from game.state.gameState import GameState
 from enums.enumActionBasic import EnumActionBasic
 from enums.enumActionWorld import EnumActionWorld
 from enums.enumScene import EnumScene
+from inputs.inputFunction import InputFunction
 
 
 class InputBasic:
@@ -13,10 +14,10 @@ class InputBasic:
 
         self.gameState = gameState
 
-        self.actions = {
-            EnumActionBasic.NAVIGATE_MENU: self.navigateMenu, 
-            EnumActionBasic.NAVIGATE_WORLD: self.navigateWorld,
-            EnumActionBasic.NAVIGATE_SETTINGS: self.navigateSettings
+        self.inputs: Dict[EnumActionBasic, InputFunction] = {
+            EnumActionBasic.NAVIGATE_MENU: InputFunction("Navigate Menu", self.navigateMenu), 
+            EnumActionBasic.NAVIGATE_WORLD: InputFunction("Navigate World", self.navigateWorld),
+            EnumActionBasic.NAVIGATE_SETTINGS: InputFunction("Navigate Settings", self.navigateSettings)
         }
 
         pass

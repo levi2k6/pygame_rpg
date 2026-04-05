@@ -8,6 +8,7 @@ from core.display import Display
 from enums.enumScene import EnumScene
 from init.coreRegistry import CoreRegistry
 from init.gameStateRegistry import StateRegistry
+from ui import uiWorld
 from ui.uiRegistry import UIRegistry
 
 
@@ -16,29 +17,9 @@ class RendererUI:
         self.uiManager = uiRegistry.uiManager 
         self.gameState = stateRegistry.gameState
         self.uiMenu = uiRegistry.uiMenu 
+        self.uiWorld = uiRegistry.uiWorld
 
     def renderUi(self, uiManager: UIManager, display: Display, delta: float):
         uiManager.update(delta)
         uiManager.draw_ui(display.screen)
-
-        if self.gameState.currentScene == EnumScene.MENU:
-            self.uiMenu
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
 
