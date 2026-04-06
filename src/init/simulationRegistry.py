@@ -1,8 +1,8 @@
 from init.gameStateRegistry import StateRegistry
-from inputs.inputRegistry import InputRegistry
+from init.inputRegistry import InputRegistry
 from loadedAssets.assetsRegistry import AssetsRegistry
-from game.state.gameState import GameState
-from game.state.display import Display
+from game.state.game.gameState import GameState
+from game.state.settings.display import Display
 from simulation.eventHandler import EventHandler
 from simulation.simulationState import SimulationState
 from simulation.simulationUi import SimulationUi
@@ -11,7 +11,7 @@ from simulation.simulationCombat import SimulationCombat
 from simulation.simulationMovement import SimulationMovement
 from simulation.simulationSpawn import SimulationSpawn 
 from simulation.simulationMovement import SimulationMovement
-from game.state.player import Player
+from game.state.game.player import Player
 from ui.uiRegistry import UIRegistry
 from world.world import World
 
@@ -22,7 +22,8 @@ class SimulationRegistry:
                  stateRegistry: StateRegistry,
                  assetsRegistry: AssetsRegistry,
                  worldRegistry: WorldRegistry,
-                 uiRegistry: UIRegistry
+                 uiRegistry: UIRegistry,
+                 inputRegistry: InputRegistry 
      ):
         self.simulationMovement: SimulationMovement = self.initSimulationMovement(worldRegistry.world, assetsRegistry.textures)
         self.simulationUi: SimulationUi = self.initSimulationUi(stateRegistry, uiRegistry)
@@ -35,6 +36,7 @@ class SimulationRegistry:
                 stateRegistry.settingsState.display,
                 stateRegistry.gameState.player
         )
+        self.eventHandler: EventHandler = self.initEventHandler(stateRegistry, uiRegistry, inputRegistry)
         pass
 
     def initSimulationMovement(self, world: World, textures: dict):
@@ -52,5 +54,5 @@ class SimulationRegistry:
     def initSimulationCombat(self, gameState: GameState, spawnSystem: SimulationSpawn, display: Display, player: Player): 
         return SimulationCombat(gameState, spawnSystem, display, player)
 
-    def initEventHandler(self, gameState: GameState, uiRegistry: UIRegistry, inputRegistry: InputRegistry): 
-        return EventHandler(gameState, uiRegistry, inputRegistry) 
+    def initEventHandler(self, stateRegistry: StateRegistry, uiRegistry: UIRegistry, inputRegistry: InputRegistry): 
+        return EventHandler(stateRegistry, uiRegistry, inputRegistry) 

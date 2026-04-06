@@ -1,11 +1,12 @@
 
 import pygame
 from enums.enumScene import EnumScene
-from game.state.debugState import DebugState
-from game.state.display import Display
-from game.state.gameState import GameState
-from game.state.player import Player
-from game.state.settingsState import SettingsState
+from game.state.debug.debugState import DebugState
+from game.state.settings.display import Display
+from game.state.game.gameState import GameState
+from game.state.game.player import Player
+from game.state.settings.keymapsSettings import KeymapsSettings
+from game.state.settings.settingsState import SettingsState
 
 
 class StateRegistry:
@@ -26,6 +27,7 @@ class StateRegistry:
     def initSettings(self):
         display = Display((800, 800), "pygame_rpg")
         pygame.display.set_caption(display.caption)
-        return SettingsState(display)
+        keymapsSettings: KeymapsSettings = KeymapsSettings() 
+        return SettingsState(display, keymapsSettings)
 
 

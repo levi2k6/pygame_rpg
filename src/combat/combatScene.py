@@ -1,7 +1,7 @@
 from pygame import Vector2
 
-from game.state.gameState import GameState
-from core.display import Display
+from game.state.game.gameState import GameState
+from game.state.settings.display import Display
 
 
 class CombatScene: 

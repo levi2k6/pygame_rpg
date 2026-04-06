@@ -1,8 +1,8 @@
 
 from pygame import Color, Rect, Vector2, draw
 
-from game.state.gameState import GameState
-from core.display import Display
+from game.state.game.gameState import GameState
+from game.state.settings.display import Display
 from Scene.CombatScene.combatScene import CombatScene
 from world.tileSystem import TileSystem
 from Scene.WorldScene.worldScene import WorldScene

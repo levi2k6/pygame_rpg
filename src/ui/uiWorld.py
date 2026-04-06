@@ -8,8 +8,8 @@ class UIWorld:
 
     def __init__(self, uiFactory: UIFactory):
 
-        self.menuButton = uiFactory.button(Vector2(100, 30), Vector2(200, 50), "World", "#menuButton")
-        self.worldTest = uiFactory.button(Vector2(100, 30), Vector2(100, 50), "World", "#worldTest")  
+        self.menuButton = uiFactory.button(Vector2(10, 30), Vector2(200, 50), "World", "#menuButton")
+        self.worldTest = uiFactory.button(Vector2(10, 300), Vector2(100, 50), "World", "#worldTest")  
 
         self.uis = [
                 self.menuButton

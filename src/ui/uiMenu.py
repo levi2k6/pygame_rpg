@@ -13,8 +13,8 @@ class UIMenu:
 
     def __init__(self, uiFactory: UIFactory):
 
-        self.playButton  = uiFactory.button(Vector2(30, 30), Vector2(200, 50), "Click", "#playButton")
-        self.menuTest = uiFactory.button(Vector2(30, 100), Vector2(200, 50), "Click", "#menuTest")
+        self.playButton  = uiFactory.button(Vector2(300, 30), Vector2(200, 50), "Click", "#playButton")
+        self.menuTest = uiFactory.button(Vector2(300, 100), Vector2(200, 50), "Click", "#menuTest")
 
         self.uis = [
                 self.playButton,

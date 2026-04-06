@@ -5,13 +5,14 @@ from pygame import Event
 from pygame_gui import UIManager
 import pygame_gui
 
+from enums import enumActionWorld
 from enums.enumActionBasic import EnumActionBasic
 from enums.enumActionMenu import EnumActionMenu
 from enums.enumActionWorld import EnumActionWorld
-from game.state.gameState import GameState
+from game.state.game.gameState import GameState
 from enums.enumScene import EnumScene
-from init.coreRegistry import CoreRegistry
-from init.renderRegistry import RenderRegistry
+from game.state.settings.settingsState import SettingsState
+from init.gameStateRegistry import StateRegistry
 from inputs.inputBasic import InputBasic
 from inputs.inputFunction import InputFunction
 from init.inputRegistry import InputRegistry
@@ -23,8 +24,9 @@ from ui.uiWorld import UIWorld
 
 class EventHandler:
 
-    def __init__(self, gameState: GameState, uiRegistry: UIRegistry, inputRegistry: InputRegistry):
-        self.gameState: GameState = gameState 
+    def __init__(self, stateRegistry: StateRegistry, uiRegistry: UIRegistry, inputRegistry: InputRegistry):
+        self.gameState: GameState = stateRegistry.gameState 
+        self.settingsState: SettingsState = stateRegistry.settingsState 
         self.uiManager: UIManager = uiRegistry.uiManager
         self.uiMenu: UIMenu = uiRegistry.uiMenu
         self.uiWorld: UIWorld = uiRegistry.uiWorld
@@ -47,20 +49,39 @@ class EventHandler:
 
     def eventInput(self, event): 
         if event.type == pygame.KEYDOWN:
+            #key input
             inputFunc: InputFunction | None
 
+            customKeymaps: dict = self.settingsState.keymapsSettings.customKeymaps
+            defaultKeymaps: dict = self.settingsState.keymapsSettings.defaultKeymaps
+
+            keyAction = None
+            if len(customKeymaps):
+                keyAction = customKeymaps.get(event.key) 
+                if keyAction == None:
+                    keyAction = defaultKeymaps.get(event.key)
+                    if keyAction == None:
+                        print("key is not tied to any action")
+                        return
+            else:
+                keyAction = defaultKeymaps.get(event.key)
+                if keyAction == None:
+                    print("key is not tied to any action")
+                    return
+
             if self.gameState.currentScene == EnumScene.MENU: 
-                inputFunc = self.inputMenu.inputs.get(event.key)
+                inputFunc: InputFunction | None = self.inputMenu.inputs.get(keyAction)
             elif self.gameState.currentScene == EnumScene.WORLD:
-                inputFunc = self.inputWorld.inputs.get(event.key)
+                inputFunc: InputFunction | None = self.inputWorld.inputs.get(keyAction)
 
             if inputFunc == None:
-                print("key does not exists")
+                print("Action does not point to any input")
                 return
 
             inputFunc.func()
 
         elif event.type == pygame_gui.UI_BUTTON_PRESSED:
+            #ui input
             inputFunc: InputFunction | None
 
             print("ui_element: ", event.ui_element)
@@ -68,19 +89,18 @@ class EventHandler:
             if self.gameState.currentScene == EnumScene.MENU:
                 actionMenu: EnumActionMenu | EnumActionBasic | None = self.uiMenu.actions.get(event.ui_element)
                 if(actionMenu == None): 
-                    print("Action not found in menu")
+                    print("Action does not point to any menu input")
                     return
 
-                if isinstance(actionMenu, EnumActionMenu):
-                    inputFunc = self.inputMenu.inputs[actionMenu]
-                elif isinstance(actionMenu, EnumActionBasic):
-                    inputFunc = self.inputBasic.inputs[actionMenu]
+                inputFunc = self.inputMenu.inputs.get(actionMenu)
 
             if self.gameState.currentScene == EnumScene.WORLD:
                 actionWorld: EnumActionWorld | EnumActionBasic | None = self.uiWorld.actions.get(event.ui_element)
+                if(actionWorld == None):
+                    print("Action does not point to any world input")
+                    return
 
-
-                inputFunc = self.uiWorld.uis.get(event.ui_element)
+                inputFunc = self.inputWorld.inputs.get(actionWorld)
 
             if inputFunc == None:
                 print("ui input does not exists")

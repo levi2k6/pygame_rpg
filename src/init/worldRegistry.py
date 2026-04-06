@@ -1,7 +1,7 @@
 from typing import Dict, List
 from pygame import Rect, Vector2
 from core.form import Form
-from game.state.display import Display
+from game.state.settings.display import Display
 from init.gameStateRegistry import StateRegistry
 from world.tile import Tile
 from world.traveler import Traveler
@@ -54,8 +54,8 @@ class WorldRegistry:
         team1y = display.screen.get_height() / 2
         team1Position = Vector2(team1x, team1y)
 
-        team2x = (display.width / 4) * 3
-        team2y = display.height / 2
+        team2x = (display.screen.width / 4) * 3
+        team2y = display.screen.height / 2
         team2Position = Vector2(team2x, team2y)
         self.combatScene: CombatScene = CombatScene(team1Position, team2Position)
 

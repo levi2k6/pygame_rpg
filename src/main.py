@@ -3,7 +3,7 @@ from game.gameExit import GameExit
 from init.gameStateRegistry import StateRegistry 
 from loadedAssets.assetsRegistry import AssetsRegistry
 from init.coreRegistry import CoreRegistry 
-from inputs.inputRegistry import InputRegistry
+from init.inputRegistry import InputRegistry
 import pygame
 import sys
 
@@ -27,17 +27,17 @@ serializationRegistry: SerializationRegistry = SerializationRegistry(stateRegist
 
 inputRegistry: InputRegistry = InputRegistry(stateRegistry, serializationRegistry.serializationPlayer)
 
-uiRegistry: UIRegistry = UIRegistry(stateRegistry.settingsState.display, inputRegistry)
+uiRegistry: UIRegistry = UIRegistry(stateRegistry.settingsState.display)
 
 worldRegistry: WorldRegistry = WorldRegistry(stateRegistry, assetsRegistry)
 
-simulationRegistry: SimulationRegistry = SimulationRegistry(stateRegistry, assetsRegistry, worldRegistry, uiRegistry) 
+simulationRegistry: SimulationRegistry = SimulationRegistry(stateRegistry, assetsRegistry, worldRegistry, uiRegistry, inputRegistry) 
 
 renderRegistry: RenderRegistry = RenderRegistry(stateRegistry, worldRegistry, uiRegistry)
 
 
 #game life cycle
-gameInit: GameInit = GameInit(simulationRegistry)
+# gameInit: GameInit = GameInit(simulationRegistry)
 gameloop: GameLoop = GameLoop(coreRegistry, stateRegistry, inputRegistry, uiRegistry, simulationRegistry, renderRegistry)
 gameExit: GameExit = GameExit()
 

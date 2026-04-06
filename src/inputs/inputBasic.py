@@ -1,7 +1,7 @@
 from typing import Dict
 
 from pygame_gui.core import UIElement
-from game.state.gameState import GameState
+from game.state.game.gameState import GameState
 from enums.enumActionBasic import EnumActionBasic
 from enums.enumActionWorld import EnumActionWorld
 from enums.enumScene import EnumScene

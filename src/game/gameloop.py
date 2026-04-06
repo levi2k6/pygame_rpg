@@ -1,10 +1,10 @@
 import pygame
-from core.display import Display
+from game.state.settings.display import Display
 from init.coreRegistry import CoreRegistry
 from init.gameStateRegistry import StateRegistry
 from init.renderRegistry import RenderRegistry
 from init.simulationRegistry import SimulationRegistry
-from inputs.inputRegistry import InputRegistry
+from init.inputRegistry import InputRegistry
 from ui.uiRegistry import UIRegistry
 
 clock = pygame.time.Clock()
@@ -20,7 +20,7 @@ class GameLoop:
         simulationRegistry: SimulationRegistry, 
         renderRegistry: RenderRegistry,
      ) -> None:
-        self.display: Display = stateRegistry.display;
+        self.display: Display = stateRegistry.settingsState.display;
         self.clock = pygame.time.Clock()
         self.isRunning = True
         self.inputRegistry = inputRegistry

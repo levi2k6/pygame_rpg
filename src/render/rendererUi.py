@@ -4,7 +4,7 @@ from typing import List
 from pygame import Event
 from pygame_gui import UIManager
 
-from core.display import Display
+from game.state.settings.display import Display
 from enums.enumScene import EnumScene
 from init.coreRegistry import CoreRegistry
 from init.gameStateRegistry import StateRegistry

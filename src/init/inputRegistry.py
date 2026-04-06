@@ -1,9 +1,7 @@
 import pygame
-from game.state import gameState
-from game.state.gameState import GameState
+from game.state.game.gameState import GameState
+from init.gameStateRegistry import StateRegistry
 from inputs.inputBasic import InputBasic
-from inputs.inputCustom import InputCustom
-from inputs.inputHandler import InputHandler
 from inputs.inputMenu import InputMenu
 from inputs.inputWorld import InputWorld
 from serialization.serializationPlayer import SerializationPlayer
@@ -11,10 +9,10 @@ from serialization.serializationPlayer import SerializationPlayer
 
 class InputRegistry:
 
-    def __init__(self, gameState: GameState, serializationPlayer: SerializationPlayer):
-        self.inputBasic = self.initInputBasic(gameState)
-        self.inputMenu = self.initInputMenu(gameState, serializationPlayer) 
-        self.inputWorld = self.initInputWorld(gameState)
+    def __init__(self, stateRegistry: StateRegistry, serializationPlayer: SerializationPlayer):
+        self.inputBasic = self.initInputBasic(stateRegistry.gameState)
+        self.inputMenu = self.initInputMenu(stateRegistry.gameState, serializationPlayer) 
+        self.inputWorld = self.initInputWorld(stateRegistry.gameState)
         self.serializationPlayer = serializationPlayer
 
     def initInputBasic(self, gameState: GameState):
@@ -25,14 +23,5 @@ class InputRegistry:
 
     def initInputWorld(self, gameState):
         return InputWorld(gameState)
-
-    def initInputCustom(self, inputBasic: InputBasic, inputMenu: InputMenu, inputWorld: InputWorld):
-        initCustom = InputCustom()
-
-        if len(initCustom.customKeys) <= 0:   
-            letterKeys = [
-                    getattr(pygame, f"K_{chr(c)}")
-                    for c in range(ord('a'), ord('z')+1)
-            ]
 
             
