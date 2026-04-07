@@ -1,8 +1,8 @@
-from game.state.game.gameState import GameState
-from game.state.settings.display import Display
+from state.game.gameState import GameState
+from state.settings.display import Display
 from simulation.simulationSpawn import SimulationSpawn 
-from game.state.game.player import Player
-from game.state.game.team import Team
+from state.game.player import Player
+from core.team import Team
 
 
 class SimulationCombat:

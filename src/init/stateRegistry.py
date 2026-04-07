@@ -1,12 +1,12 @@
 
 import pygame
 from enums.enumScene import EnumScene
-from game.state.debug.debugState import DebugState
-from game.state.settings.display import Display
-from game.state.game.gameState import GameState
-from game.state.game.player import Player
-from game.state.settings.keymapsSettings import KeymapsSettings
-from game.state.settings.settingsState import SettingsState
+from state.debug.debugState import DebugState
+from state.settings.display import Display
+from state.game.gameState import GameState
+from state.game.player import Player
+from state.settings.keymapsSettings import KeymapsSettings
+from state.settings.settingsState import SettingsState
 
 
 class StateRegistry:

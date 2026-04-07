@@ -9,10 +9,10 @@ from enums import enumActionWorld
 from enums.enumActionBasic import EnumActionBasic
 from enums.enumActionMenu import EnumActionMenu
 from enums.enumActionWorld import EnumActionWorld
-from game.state.game.gameState import GameState
+from state.game.gameState import GameState
 from enums.enumScene import EnumScene
-from game.state.settings.settingsState import SettingsState
-from init.gameStateRegistry import StateRegistry
+from state.settings.settingsState import SettingsState
+from init.stateRegistry import StateRegistry
 from inputs.inputBasic import InputBasic
 from inputs.inputFunction import InputFunction
 from init.inputRegistry import InputRegistry

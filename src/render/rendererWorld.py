@@ -1,8 +1,8 @@
 
 
 from pygame import Color, draw
-from game.state.game.gameState import GameState
-from game.state.settings.display import Display
+from state.game.gameState import GameState
+from state.settings.display import Display
 from world.traveler import Traveler
 from render.camera import Camera
 from render.rendererBasic import RendererBasic

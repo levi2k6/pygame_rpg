@@ -1,6 +1,6 @@
 from pygame import Rect, Vector2
 
-from game.state.settings.display import Display
+from state.settings.display import Display
 
 class Camera:
     def __init__(self, display: Display):

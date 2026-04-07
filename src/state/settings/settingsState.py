@@ -1,5 +1,5 @@
-from game.state.settings.display import Display
-from game.state.settings.keymapsSettings import KeymapsSettings
+from state.settings.display import Display
+from state.settings.keymapsSettings import KeymapsSettings
 
 class SettingsState:
     def __init__(self, display: Display, keymapsSettings: KeymapsSettings):

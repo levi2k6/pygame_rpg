@@ -3,9 +3,8 @@ from serialization import serializationUtil
 from serialization.messages import FileCorruptedException
 from serialization.serializationUtil import SerializationUtil
 from world.entities.human import Human
-from game.state.game.player import Player
-from game.state.game.team import Team
-
+from state.game.player import Player
+from core.team import Team
 import os
 import struct 
 

@@ -1,6 +1,6 @@
 
 from pygame_gui import UIManager
-from game.state.settings.display import Display
+from state.settings.display import Display
 from ui.uiFactory import UIFactory
 from ui.uiMenu import UIMenu
 from ui.uiWorld import UIWorld

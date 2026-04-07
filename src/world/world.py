@@ -23,7 +23,7 @@ class World:
         self.tiles: List[List[Tile]] = tiles 
         self.tilesWidth: float = tilesWidth
         self.tilesHeight: float = tilesHeight 
-        self.tileInitPos: Vector2 = tileOrigin 
+        self.tileOrigin: Vector2 = tileOrigin 
         self.traveler: Traveler = traveler
 
 

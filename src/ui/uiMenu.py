@@ -13,17 +13,16 @@ class UIMenu:
 
     def __init__(self, uiFactory: UIFactory):
 
-        self.playButton  = uiFactory.button(Vector2(300, 30), Vector2(200, 50), "Click", "#playButton")
-        self.menuTest = uiFactory.button(Vector2(300, 100), Vector2(200, 50), "Click", "#menuTest")
+        self.menuLabel = uiFactory.label(Vector2(300, 0), Vector2(200, 50), "Menu", "")
+        self.playButton  = uiFactory.button(Vector2(300, 30), Vector2(200, 50), "Go to world", "#playButton")
 
         self.uis = [
+                self.menuLabel,
                 self.playButton,
-                self.menuTest
         ]
 
         self.actions: Dict[UIElement, EnumActionMenu | EnumActionBasic] = {
             self.playButton: EnumActionBasic.NAVIGATE_WORLD,
-            self.menuTest: EnumActionMenu.TEST
         }
 
     pass

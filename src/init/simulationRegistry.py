@@ -1,9 +1,9 @@
-from init.gameStateRegistry import StateRegistry
-from init.inputRegistry import InputRegistry
+from init.stateRegistry import StateRegistry
 from loadedAssets.assetsRegistry import AssetsRegistry
-from game.state.game.gameState import GameState
-from game.state.settings.display import Display
-from simulation.eventHandler import EventHandler
+from simulation.simulationNavigation import SimulationNavigation
+from simulation.world.simulationTileGeneration import SimulationTileGeneration
+from state.game.gameState import GameState
+from state.settings.display import Display
 from simulation.simulationState import SimulationState
 from simulation.simulationUi import SimulationUi
 from init.worldRegistry import WorldRegistry
@@ -11,7 +11,7 @@ from simulation.simulationCombat import SimulationCombat
 from simulation.simulationMovement import SimulationMovement
 from simulation.simulationSpawn import SimulationSpawn 
 from simulation.simulationMovement import SimulationMovement
-from game.state.game.player import Player
+from state.game.player import Player
 from ui.uiRegistry import UIRegistry
 from world.world import World
 
@@ -23,8 +23,9 @@ class SimulationRegistry:
                  assetsRegistry: AssetsRegistry,
                  worldRegistry: WorldRegistry,
                  uiRegistry: UIRegistry,
-                 inputRegistry: InputRegistry 
      ):
+        self.simulationNavigation: SimulationNavigation = self.initSimulationNavigation(stateRegistry.gameState) 
+        self.simulationTileGeneration: SimulationTileGeneration = self.initSimulationTileGeneration(worldRegistry, assetsRegistry)
         self.simulationMovement: SimulationMovement = self.initSimulationMovement(worldRegistry.world, assetsRegistry.textures)
         self.simulationUi: SimulationUi = self.initSimulationUi(stateRegistry, uiRegistry)
         self.simulationState: SimulationState = self.initSimulationState(stateRegistry, self.simulationUi)
@@ -36,8 +37,13 @@ class SimulationRegistry:
                 stateRegistry.settingsState.display,
                 stateRegistry.gameState.player
         )
-        self.eventHandler: EventHandler = self.initEventHandler(stateRegistry, uiRegistry, inputRegistry)
         pass
+
+    def initSimulationNavigation(self, gameState: GameState):
+        return SimulationNavigation(gameState) 
+
+    def initSimulationTileGeneration(self, worldRegistry: WorldRegistry, assetsRegistry: AssetsRegistry):
+        return SimulationTileGeneration(worldRegistry, assetsRegistry)
 
     def initSimulationMovement(self, world: World, textures: dict):
         return SimulationMovement(world, textures)
@@ -54,5 +60,4 @@ class SimulationRegistry:
     def initSimulationCombat(self, gameState: GameState, spawnSystem: SimulationSpawn, display: Display, player: Player): 
         return SimulationCombat(gameState, spawnSystem, display, player)
 
-    def initEventHandler(self, stateRegistry: StateRegistry, uiRegistry: UIRegistry, inputRegistry: InputRegistry): 
-        return EventHandler(stateRegistry, uiRegistry, inputRegistry) 
+

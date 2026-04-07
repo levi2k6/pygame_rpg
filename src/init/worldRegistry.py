@@ -1,8 +1,8 @@
 from typing import Dict, List
 from pygame import Rect, Vector2
 from core.form import Form
-from game.state.settings.display import Display
-from init.gameStateRegistry import StateRegistry
+from state.settings.display import Display
+from init.stateRegistry import StateRegistry
 from world.tile import Tile
 from world.traveler import Traveler
 from loadedAssets.assetsRegistry import AssetsRegistry
@@ -24,24 +24,6 @@ class WorldRegistry:
         tilesWidth: float = 100
         tilesHeight: float = 100
         tileOrigin: Vector2 = Vector2(0, 0)
-
-
-        #generate tiles
-        rowY: float = tileOrigin.y
-        rowX: float = tileOrigin.x
-        for _ in range(height):
-            row: List[Tile] = []
-            #genrate row
-            for _ in range(height):
-                rect: Rect = Rect(rowX, rowY, width, height)
-                tile: Tile = Tile(rect, textures["forsen"])
-                row.append(tile)
-                rowX += width
-            #move down for new row
-            rowY += height
-            #reset x position
-            rowX = tileOrigin.x  
-            tiles.append(row)
 
         form: Form = Form(Vector2(0, 0), Vector2(20, 20), textures["forsen"])
         traveler: Traveler = Traveler(form) 

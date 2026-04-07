@@ -1,6 +1,6 @@
 
 from enums.enumScene import EnumScene
-from init.gameStateRegistry import StateRegistry
+from init.stateRegistry import StateRegistry
 from ui.uiRegistry import UIRegistry
 
 

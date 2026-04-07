@@ -8,16 +8,16 @@ class UIWorld:
 
     def __init__(self, uiFactory: UIFactory):
 
-        self.menuButton = uiFactory.button(Vector2(10, 30), Vector2(200, 50), "World", "#menuButton")
-        self.worldTest = uiFactory.button(Vector2(10, 300), Vector2(100, 50), "World", "#worldTest")  
+        self.worldLabel = uiFactory.label(Vector2(10, 0), Vector2(200, 50), "World", "")
+        self.menuButton = uiFactory.button(Vector2(10, 30), Vector2(200, 50), "Go to Menu", "#menuButton")
 
         self.uis = [
+                self.worldLabel,
                 self.menuButton
         ]
 
         self.actions = {
                 self.menuButton: EnumActionBasic.NAVIGATE_MENU,
-                self.worldTest: EnumActionWorld.TEST 
         }
 
 
