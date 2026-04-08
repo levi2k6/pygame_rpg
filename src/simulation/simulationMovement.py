@@ -39,3 +39,26 @@ class SimulationMovement:
         newTravlerPosition = Vector2(targetTile.rect.centerx, targetTile.rect.centery)
         traveler.form.position = newTravlerPosition
 
+    def travelUp(self): 
+        newX = self.world.traveler.tileX 
+        newY = self.world.traveler.tileY + -1
+        self.occupyTile(newX, newY)
+    def travelDown(self):
+        newX = self.world.traveler.tileX 
+        newY = self.world.traveler.tileY + 1
+        self.occupyTile(newX, newY)
+    def travelLeft(self):
+        newX = self.world.traveler.tileX + -1
+        newY = self.world.traveler.tileY  
+        self.occupyTile(newX, newY)
+    def travelRight(self):
+        newX = self.world.traveler.tileX + 1
+        newY = self.world.traveler.tileY  
+        self.occupyTile(newX, newY)
+
+    
+
+
+
+
+

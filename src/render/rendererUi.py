@@ -16,12 +16,13 @@ class RendererUI:
     def __init__(self, uiRegistry: UIRegistry, stateRegistry: StateRegistry):
         self.uiManager = uiRegistry.uiManager 
         self.gameState = stateRegistry.gameState
+        self.settingsState = stateRegistry.settingsState
         self.uiMenu = uiRegistry.uiMenu 
         self.uiWorld = uiRegistry.uiWorld
 
         self.lastScene: EnumScene | None = None
 
-    def renderUi(self, display: Display, delta: float):
+    def renderUi(self, delta: float):
 
         if self.gameState.currentScene != self.lastScene: 
             if self.gameState.currentScene == EnumScene.MENU: 
@@ -39,7 +40,7 @@ class RendererUI:
 
 
         self.uiManager.update(delta)
-        self.uiManager.draw_ui(display.screen)
+        self.uiManager.draw_ui(self.settingsState.display.screen)
 
 
 

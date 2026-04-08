@@ -31,7 +31,7 @@ class InputMenu:
         }
 
     def menuSomething(self): 
-        self.gameState.currentScene = EnumScene.WORLD 
+        print("something")
 
 
     def test(self):

@@ -15,26 +15,8 @@ class InputBasic:
         self.gameState = gameState
 
         self.inputs: Dict[EnumActionBasic, InputFunction] = {
-            EnumActionBasic.NAVIGATE_MENU: InputFunction("Navigate Menu", self.navigateMenu), 
-            EnumActionBasic.NAVIGATE_WORLD: InputFunction("Navigate World", self.navigateWorld),
-            EnumActionBasic.NAVIGATE_SETTINGS: InputFunction("Navigate Settings", self.navigateSettings)
         }
 
         pass
         
-
-    def navigateMenu(self):
-        self.gameState.currentScene = EnumScene.MENU
-        pass
-
-    def navigateWorld(self):
-        self.gameState.currentScene = EnumScene.WORLD
-        pass
-
-    def navigateSettings(self):
-        self.gameState.currentScene = EnumScene.SETTINGS
-        pass
-
-    pass
-
 

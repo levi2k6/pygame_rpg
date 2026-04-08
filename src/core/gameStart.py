@@ -8,7 +8,7 @@ from world.world import World
 class GameStart:
     def __init__(self, simulationRegistry: SimulationRegistry):
         self.startTileGeneration(simulationRegistry.simulationTileGeneration)
-        # self.startTraveler(simulationRegistry.simulationMovement)
+        self.startTraveler(simulationRegistry.simulationMovement)
         pass
 
     def startTileGeneration(self, simulationTileGeneration: SimulationTileGeneration): 

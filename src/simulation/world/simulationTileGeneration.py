@@ -33,12 +33,14 @@ class SimulationTileGeneration:
             row: List[Tile] = []
             #genrate row
             for _ in range(height):
-                rect: Rect = Rect(rowX, rowY, width, height)
+                rect: Rect = Rect(rowX, rowY, tilesWidth, tilesHeight)
+                print("tilesWidth: ", tilesWidth)
+                print("tileHeight: ", tilesHeight)
                 tile: Tile = Tile(rect, self.textures["forsen"])
                 row.append(tile)
-                rowX += width
+                rowX += tilesWidth 
             #move down for new row
-            rowY += height
+            rowY += tilesHeight 
             #reset x position
             rowX = tileOrigin.x  
             tiles.append(row)

@@ -1,4 +1,5 @@
 from pygame_gui import UIManager
+from render.rendererScene import RendererScene
 from state.game.gameState import GameState
 from state.settings.display import Display
 from init.coreRegistry import CoreRegistry
@@ -16,8 +17,9 @@ class RenderRegistry:
     def __init__(self, stateRegistry: StateRegistry, worldRegistry: WorldRegistry, uiRegistry: UIRegistry):
         self.camera = self.initCamera(stateRegistry.settingsState.display)
         self.rendererBasic = self.initRendererBasic(stateRegistry.gameState, stateRegistry.settingsState.display, self.camera)
-        self.rendererWorld = self.initRendererWorld(stateRegistry.gameState, stateRegistry.settingsState.display, worldRegistry.world, self.camera)
+        self.rendererWorld = self.initRendererWorld(stateRegistry, stateRegistry.settingsState.display, worldRegistry.world, self.camera)
         self.rendererUi = self.initRendererUI(uiRegistry, stateRegistry) 
+        self.rendererScene = self.initRendererScene(stateRegistry, self.rendererWorld)
         pass
 
     def initCamera(self, display: Display): 
@@ -26,8 +28,11 @@ class RenderRegistry:
     def initRendererBasic(self, gameState: GameState, display: Display, camera: Camera): 
         return RendererBasic(gameState, display, camera)
 
-    def initRendererWorld(self, gameState: GameState, display: Display, world: World, camera: Camera):
-        return RendererWorld(gameState, display, self.rendererBasic,  world, camera)
+    def initRendererWorld(self, stateRegistry: StateRegistry, display: Display, world: World, camera: Camera):
+        return RendererWorld(stateRegistry, display, self.rendererBasic,  world, camera)
 
     def initRendererUI(self, uiRegistry: UIRegistry, stateRegistry: StateRegistry):
         return RendererUI(uiRegistry, stateRegistry) 
+
+    def initRendererScene(self, stateRegistry: StateRegistry, rendererWorld: RendererWorld):
+        return RendererScene(stateRegistry, rendererWorld)

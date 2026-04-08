@@ -18,15 +18,17 @@ class WorldRegistry:
 
     def initWorld(self, textures: Dict):
         rect: Rect = Rect(0, 0, 1000, 1000) 
-        width: int = 5 
-        height: int = 5
+        width: int = 5
+        height: int = 5 
         tiles: List[List[Tile]] = []
-        tilesWidth: float = 100
-        tilesHeight: float = 100
+        tilesWidth: float = 100 
+        tilesHeight: float = 100 
         tileOrigin: Vector2 = Vector2(0, 0)
 
         form: Form = Form(Vector2(0, 0), Vector2(20, 20), textures["forsen"])
-        traveler: Traveler = Traveler(form) 
+        tileX = 0
+        tileY = 0
+        traveler: Traveler = Traveler(form, tileX, tileY) 
 
         self.world: World = World(rect, width, height, tiles, tilesWidth, tilesHeight, tileOrigin, traveler)
         pass

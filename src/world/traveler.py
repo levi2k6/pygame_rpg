@@ -2,9 +2,9 @@ from core.form import Form
 
 class Traveler:
 
-    def __init__(self, form: Form):
+    def __init__(self, form: Form, tileX: int, tileY: int):
         self.form: Form = form
-        self.tileX: int
-        self.tileY: int
+        self.tileX: int = tileX
+        self.tileY: int = tileY
         pass
 

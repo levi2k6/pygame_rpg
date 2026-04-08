@@ -40,7 +40,6 @@ class EventHandler:
                 print("quit")
                 return False 
 
-            print("currentScene: ", self.gameState.currentScene)
 
             self.eventInput(event)
             self.uiManager.process_events(event)

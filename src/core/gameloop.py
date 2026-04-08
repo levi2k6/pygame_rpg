@@ -1,4 +1,5 @@
 import pygame
+from render import rendererScene
 from state.settings.display import Display
 from init.coreRegistry import CoreRegistry
 from init.stateRegistry import StateRegistry
@@ -30,6 +31,8 @@ class GameLoop:
         self.uiManager = uiRegistry.uiManager 
         self.simulationRegistry = simulationRegistry
         self.rendererUi = renderRegistry.rendererUi
+        self.rendererWorld = renderRegistry.rendererWorld
+        self.rendererScene = renderRegistry.rendererScene
 
         self.startGameloop()
 
@@ -37,7 +40,6 @@ class GameLoop:
     def startGameloop(self):
         while self.isRunning:
 
-            self.display.screen.fill((0,0,0))
             delta = self.clock.tick(60) / 1000.0
 
             events = pygame.event.get()
@@ -45,9 +47,11 @@ class GameLoop:
             self.isRunning = self.eventHandler.processEvent(events)
 
             self.simulate()
-            self.rendererUi.renderUi(self.display, delta)
+            self.rendererUi.renderUi(delta)
+            self.rendererScene.renderScene()
 
             pygame.display.flip()
+            self.display.screen.fill((0,0,0))
 
     def simulate(self):
         pass

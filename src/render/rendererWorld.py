@@ -1,6 +1,7 @@
 
 
-from pygame import Color, draw
+from pygame import Color, Vector2, draw
+from init.stateRegistry import StateRegistry
 from state.game.gameState import GameState
 from state.settings.display import Display
 from world.traveler import Traveler
@@ -11,8 +12,9 @@ from world.world import World
 
 class RendererWorld:
 
-    def __init__(self, gameState: GameState, display: Display, rendererBasic: RendererBasic, world: World, camera: Camera):
-        self.gameState = gameState 
+    def __init__(self, stateRegistry: StateRegistry, display: Display, rendererBasic: RendererBasic, world: World, camera: Camera):
+        self.gameState = stateRegistry.gameState 
+        self.debugState = stateRegistry.debugState
         self.display = display
         self.rendererBasic = rendererBasic 
         self.world = world
@@ -24,11 +26,14 @@ class RendererWorld:
         if len(self.world.tiles) == 0:
             return
 
+        self.camera.position = self.world.traveler.form.position - Vector2(self.display.screen.get_width()/2, self.display.screen.get_height()/2)
+
         for i in range(len(self.world.tiles)):
             for tile in self.world.tiles[i]:
-                if self.gameState.isPositionShow == True:
+                if self.debugState.isPositionShow == True:
 
-                    color: Color = Color(255, 255, 0) 
+
+                    color: Color = Color(255, 0, 0) 
                     topLeft = tile.rect.topleft - self.camera.position
                     topRight = tile.rect.topright - self.camera.position
                     bottomRight = tile.rect.bottomright - self.camera.position
@@ -42,8 +47,6 @@ class RendererWorld:
         #traveler render 
         traveler: Traveler = self.world.traveler
         self.rendererBasic.renderTexture(traveler.form.transformedSprite, traveler.form.size, traveler.form.position)
-
-
 
 
 
