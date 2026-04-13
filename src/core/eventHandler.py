@@ -1,4 +1,5 @@
 
+from enum import Enum
 from typing import Dict, List
 import pygame
 from pygame import Event
@@ -34,82 +35,57 @@ class EventHandler:
         self.inputMenu = inputRegistry.inputMenu
         self.inputWorld = inputRegistry.inputWorld 
 
-    def processEvent(self, events: List[Event]):
+
+    def processEvents(self, events):
+        if self.gameState.currentScene == EnumScene.MENU:
+            self.handleInput(events, self.inputMenu.inputs, self.uiMenu.actions)
+        elif self.gameState.currentScene == EnumScene.WORLD:
+            self.handleInput(events, self.inputWorld.inputs, self.uiWorld.actions)
+
+    def handleInput(self, events: List[Event], inputSceneInputs: dict, uiSceneActions: dict):
         for event in events:
-            if event.type == pygame.QUIT:
-                print("quit")
-                return False 
+            inputFunc: InputFunction | None = None
 
+            if event.type == pygame.KEYDOWN:
 
-            self.eventInput(event)
-            self.uiManager.process_events(event)
+                customKeymaps: dict = self.settingsState.keymapsSettings.customKeymaps
+                defaultKeymaps: dict = self.settingsState.keymapsSettings.defaultKeymaps
 
-        return True
-
-    def eventInput(self, event): 
-        if event.type == pygame.KEYDOWN:
-            #key input
-            inputFunc: InputFunction | None
-
-            customKeymaps: dict = self.settingsState.keymapsSettings.customKeymaps
-            defaultKeymaps: dict = self.settingsState.keymapsSettings.defaultKeymaps
-
-            keyAction = None
-            if len(customKeymaps):
-                keyAction = customKeymaps.get(event.key) 
-                if keyAction == None:
+                keyAction = None
+                if len(customKeymaps):
+                    keyAction = customKeymaps.get(event.key) 
+                    if keyAction == None:
+                        keyAction = defaultKeymaps.get(event.key)
+                        if keyAction == None:
+                            print("key is not tied to any action")
+                else:
                     keyAction = defaultKeymaps.get(event.key)
                     if keyAction == None:
                         print("key is not tied to any action")
-                        return
-            else:
-                keyAction = defaultKeymaps.get(event.key)
-                if keyAction == None:
-                    print("key is not tied to any action")
-                    return
-
-            if self.gameState.currentScene == EnumScene.MENU: 
-                inputFunc: InputFunction | None = self.inputMenu.inputs.get(keyAction)
-            elif self.gameState.currentScene == EnumScene.WORLD:
-                inputFunc: InputFunction | None = self.inputWorld.inputs.get(keyAction)
-
-            if inputFunc == None:
-                print("Action does not point to any input")
-                return
-
-            inputFunc.func()
-
-        elif event.type == pygame_gui.UI_BUTTON_PRESSED:
-            #ui input
-            inputFunc: InputFunction | None
-
-            print("ui_element: ", event.ui_element)
-
-            if self.gameState.currentScene == EnumScene.MENU:
-                actionMenu: EnumActionMenu | EnumActionBasic | None = self.uiMenu.actions.get(event.ui_element)
-                if(actionMenu == None): 
-                    print("Action does not point to any menu input")
-                    return
-
-                inputFunc = self.inputMenu.inputs.get(actionMenu)
-
-            if self.gameState.currentScene == EnumScene.WORLD:
-                actionWorld: EnumActionWorld | EnumActionBasic | None = self.uiWorld.actions.get(event.ui_element)
-                if(actionWorld == None):
-                    print("Action does not point to any world input")
-                    return
-
-                inputFunc = self.inputWorld.inputs.get(actionWorld)
-
-            if inputFunc == None:
-                print("ui input does not exists")
-                return
-
-            inputFunc.func()
 
 
+                inputFunc = inputSceneInputs.get(keyAction)
+
+            elif event.type == pygame_gui.UI_BUTTON_PRESSED:
+                print("ui_element: ", event.ui_element)
+                action: Enum | None = uiSceneActions.get(event.ui_element) 
+                print("action :", action)
+                if action == None:
+                    print("UI element does not point to any action")
+
+                inputFunc = inputSceneInputs.get(action)
+                print("inputFunc: ", inputFunc)
+        
+            elif event.type == pygame.QUIT:
+                print("quit")
+                self.gameState.isRunning = False 
 
 
+            if inputFunc != None:
+                inputFunc.func()
+                print("currentScene:", self.gameState.currentScene)
 
+
+            self.uiManager.process_events(event)
 
 

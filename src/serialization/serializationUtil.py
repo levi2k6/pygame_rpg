@@ -26,6 +26,8 @@ class SerializationUtil:
         return playerSavePath 
 
 
+
+
     def initSaveDirectories(self): 
         if not os.path.exists(self.getPlayerSavePath()):
             os.mkdir(self.getPlayerSavePath())

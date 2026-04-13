@@ -2,7 +2,7 @@ from pygame import Vector2
 from world.entities.entity import Entity
 from world.entities.goblin import Goblin
 from loadedAssets.assetsRegistry import AssetsRegistry 
-from core.form import Form
+from core.sprite import Sprite
 
 class SimulationSpawn:
 
@@ -13,7 +13,7 @@ class SimulationSpawn:
         # position: Vector2 = Vector2(600, 100)
         # size: Vector2 = Vector2(200, 200)
         # sprite = self.assets.data["forsen"]
-        # form: Form = Form(position, size, sprite)
+        # form: Sprite = Sprite(position, size, sprite)
         goblin = Goblin("goblin")
         return goblin
 

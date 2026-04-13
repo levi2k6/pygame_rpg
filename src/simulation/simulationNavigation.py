@@ -14,3 +14,4 @@ class SimulationNavigation:
 
     def navigateWorld(self):
         self.gameState.currentScene = EnumScene.WORLD
+

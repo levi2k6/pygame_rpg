@@ -1,5 +1,6 @@
 from core.gameStart import GameStart
 from core.gameExit import GameExit
+from init.animationRegistry import AnimationRegistry
 from init.stateRegistry import StateRegistry 
 from loadedAssets.assetsRegistry import AssetsRegistry
 from init.coreRegistry import CoreRegistry 
@@ -32,13 +33,15 @@ simulationRegistry: SimulationRegistry = SimulationRegistry(stateRegistry, asset
 
 renderRegistry: RenderRegistry = RenderRegistry(stateRegistry, worldRegistry, uiRegistry)
 
+animationRegistry: AnimationRegistry = AnimationRegistry(worldRegistry)  
+
 inputRegistry: InputRegistry = InputRegistry(stateRegistry, serializationRegistry.serializationPlayer, simulationRegistry)
 
-
 eventHandler: EventHandler = EventHandler(stateRegistry, uiRegistry, inputRegistry)
+
 #game life cycle
-gameInit: GameStart = GameStart(simulationRegistry)
-gameloop: GameLoop = GameLoop(eventHandler, stateRegistry, inputRegistry, uiRegistry, simulationRegistry, renderRegistry)
+gameInit: GameStart = GameStart(stateRegistry, worldRegistry, simulationRegistry, renderRegistry)
+gameloop: GameLoop = GameLoop(eventHandler, stateRegistry, inputRegistry, uiRegistry, simulationRegistry, animationRegistry, renderRegistry)
 gameExit: GameExit = GameExit()
 
 #end

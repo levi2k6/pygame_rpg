@@ -2,7 +2,7 @@ from typing import List
 
 from pygame import Rect, Surface, Vector2
 from loadedAssets.assetsRegistry import AssetsRegistry 
-from core.form import Form
+from core.sprite import Sprite
 from world.tile import Tile
 from world.traveler import Traveler
 from world.world import World
@@ -37,7 +37,7 @@ class SimulationMovement:
         traveler.tileX = x
         traveler.tileY = y
         newTravlerPosition = Vector2(targetTile.rect.centerx, targetTile.rect.centery)
-        traveler.form.position = newTravlerPosition
+        traveler.position = newTravlerPosition
 
     def travelUp(self): 
         newX = self.world.traveler.tileX 

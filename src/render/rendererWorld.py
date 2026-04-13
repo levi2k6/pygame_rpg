@@ -26,12 +26,11 @@ class RendererWorld:
         if len(self.world.tiles) == 0:
             return
 
-        self.camera.position = self.world.traveler.form.position - Vector2(self.display.screen.get_width()/2, self.display.screen.get_height()/2)
+        self.camera.position = self.world.traveler.sprite.position - Vector2(self.display.screen.get_width()/2, self.display.screen.get_height()/2)
 
         for i in range(len(self.world.tiles)):
             for tile in self.world.tiles[i]:
                 if self.debugState.isPositionShow == True:
-
 
                     color: Color = Color(255, 0, 0) 
                     topLeft = tile.rect.topleft - self.camera.position
@@ -46,7 +45,7 @@ class RendererWorld:
         
         #traveler render 
         traveler: Traveler = self.world.traveler
-        self.rendererBasic.renderTexture(traveler.form.transformedSprite, traveler.form.size, traveler.form.position)
+        self.rendererBasic.renderTexture(traveler.sprite.transformedSprite, traveler.sprite.size, traveler.sprite.position)
 
 
 

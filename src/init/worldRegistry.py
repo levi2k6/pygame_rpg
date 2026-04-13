@@ -1,6 +1,6 @@
 from typing import Dict, List
 from pygame import Rect, Vector2
-from core.form import Form
+from core.sprite import Sprite
 from state.settings.display import Display
 from init.stateRegistry import StateRegistry
 from world.tile import Tile
@@ -25,10 +25,10 @@ class WorldRegistry:
         tilesHeight: float = 100 
         tileOrigin: Vector2 = Vector2(0, 0)
 
-        form: Form = Form(Vector2(0, 0), Vector2(20, 20), textures["forsen"])
+        sprite: Sprite = Sprite(Vector2(0, 0), Vector2(100, 100), textures["forsen"])
         tileX = 0
         tileY = 0
-        traveler: Traveler = Traveler(form, tileX, tileY) 
+        traveler: Traveler = Traveler(sprite, tileX, tileY) 
 
         self.world: World = World(rect, width, height, tiles, tilesWidth, tilesHeight, tileOrigin, traveler)
         pass

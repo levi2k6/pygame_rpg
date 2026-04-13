@@ -20,27 +20,32 @@ class RendererUI:
         self.uiMenu = uiRegistry.uiMenu 
         self.uiWorld = uiRegistry.uiWorld
 
-        self.lastScene: EnumScene | None = None
 
-    def renderUi(self, delta: float):
-
-        if self.gameState.currentScene != self.lastScene: 
-            if self.gameState.currentScene == EnumScene.MENU: 
-                for ui in self.uiMenu.uis:
-                    ui.show()
-                for ui in self.uiWorld.uis:
-                    ui.hide()
-            elif self.gameState.currentScene == EnumScene.WORLD:
-                for ui in self.uiWorld.uis:
-                    ui.show()
-                for ui in self.uiMenu.uis:
-                    ui.hide()
-
-            self.lastScene = self.gameState.currentScene
-
+    def renderUiMenu(self, delta: float): 
+        if self.gameState.currentScene != self.gameState.lastScene:
+            print("show menu")
+            for ui in self.uiMenu.uis:
+                ui.show()
+            for ui in self.uiWorld.uis:
+                ui.hide()
+            self.gameState.lastScene = self.gameState.currentScene
 
         self.uiManager.update(delta)
         self.uiManager.draw_ui(self.settingsState.display.screen)
 
+    def renderUiWorld(self, delta: float):
+        if self.gameState.currentScene != self.gameState.lastScene:
+            print("show world")
+            for ui in self.uiWorld.uis:
+                ui.show()
+            for ui in self.uiMenu.uis:
+                ui.hide()
+            self.gameState.lastScene = self.gameState.currentScene
+
+        self.uiManager.update(delta)
+        self.uiManager.draw_ui(self.settingsState.display.screen)
+
+
+            
 
 

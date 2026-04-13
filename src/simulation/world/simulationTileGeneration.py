@@ -3,7 +3,7 @@
 from typing import List
 from pygame import Rect, Vector2
 
-from core.form import Form
+from core.sprite import Sprite
 from init.worldRegistry import WorldRegistry
 from loadedAssets.assetsRegistry import AssetsRegistry
 from world.tile import Tile

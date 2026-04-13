@@ -9,7 +9,7 @@ class CameraSystem:
 
 
     def simulateWorld(self):
-        self.camera.position = self.traveler.form.position
+        self.camera.position = self.traveler.sprite.position
 
 
     def resetCamera(self): 

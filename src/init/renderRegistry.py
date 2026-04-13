@@ -1,5 +1,7 @@
 from pygame_gui import UIManager
+from render import rendererBasic
 from render.rendererScene import RendererScene
+from render.rendererSprite import RendererSprite
 from state.game.gameState import GameState
 from state.settings.display import Display
 from init.coreRegistry import CoreRegistry
@@ -20,6 +22,7 @@ class RenderRegistry:
         self.rendererWorld = self.initRendererWorld(stateRegistry, stateRegistry.settingsState.display, worldRegistry.world, self.camera)
         self.rendererUi = self.initRendererUI(uiRegistry, stateRegistry) 
         self.rendererScene = self.initRendererScene(stateRegistry, self.rendererWorld)
+        self.rendererSprite = self.initRendererSprite(self.rendererBasic)
         pass
 
     def initCamera(self, display: Display): 
@@ -36,3 +39,6 @@ class RenderRegistry:
 
     def initRendererScene(self, stateRegistry: StateRegistry, rendererWorld: RendererWorld):
         return RendererScene(stateRegistry, rendererWorld)
+
+    def initRendererSprite(self, rendererBasic: RendererBasic): 
+        return RendererSprite(rendererBasic)

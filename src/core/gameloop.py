@@ -1,4 +1,6 @@
 import pygame
+from enums.enumScene import EnumScene
+from init.animationRegistry import AnimationRegistry
 from render import rendererScene
 from state.settings.display import Display
 from init.coreRegistry import CoreRegistry
@@ -20,16 +22,17 @@ class GameLoop:
         inputRegistry: InputRegistry, 
         uiRegistry: UIRegistry,
         simulationRegistry: SimulationRegistry, 
+        animationRegistry: AnimationRegistry,
         renderRegistry: RenderRegistry,
      ) -> None:
         self.eventHandler = eventHandler
         self.display: Display = stateRegistry.settingsState.display;
         self.clock = pygame.time.Clock()
-        self.isRunning = True
         self.inputRegistry = inputRegistry
         self.gameState = stateRegistry.gameState
         self.uiManager = uiRegistry.uiManager 
         self.simulationRegistry = simulationRegistry
+        self.animationRegistry = animationRegistry
         self.rendererUi = renderRegistry.rendererUi
         self.rendererWorld = renderRegistry.rendererWorld
         self.rendererScene = renderRegistry.rendererScene
@@ -38,23 +41,33 @@ class GameLoop:
 
 
     def startGameloop(self):
-        while self.isRunning:
+        while self.gameState.isRunning:
 
             delta = self.clock.tick(60) / 1000.0
 
             events = pygame.event.get()
             
-            self.isRunning = self.eventHandler.processEvent(events)
+            self.eventHandler.processEvents(events)
 
-            self.simulate()
-            self.rendererUi.renderUi(delta)
-            self.rendererScene.renderScene()
+            self.sceneHandler(delta)
 
             pygame.display.flip()
             self.display.screen.fill((0,0,0))
 
-    def simulate(self):
-        pass
+
+    def sceneHandler(self, delta):
+        if self.gameState.currentScene == EnumScene.MENU: 
+            self.rendererUi.renderUiMenu(delta)
+
+        elif self.gameState.currentScene == EnumScene.WORLD:
+            self.rendererWorld.renderWorld()
+            self.rendererUi.renderUiWorld(delta)
+
+
+
+
+
+
 
 
 
