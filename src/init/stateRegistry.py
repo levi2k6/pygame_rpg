@@ -1,6 +1,9 @@
 
 import pygame
 from enums.enumScene import EnumScene
+from init.serializationRegistry import SerializationRegistry
+from serialization import serializationPlayer
+from serialization.serializationPlayer import SerializationPlayer
 from state.debug.debugState import DebugState
 from state.settings.display import Display
 from state.game.gameState import GameState
@@ -11,14 +14,20 @@ from state.settings.settingsState import SettingsState
 
 class StateRegistry:
 
-    def __init__(self):
+    def __init__(self, serializationRegistry: SerializationRegistry):
+        self.serializationPlayer: SerializationPlayer = serializationRegistry.serializationPlayer 
         self.gameState = self.initGameState()
         self.debugState = self.initDebug()
         self.settingsState = self.initSettings()
         pass
 
     def initGameState(self): 
+        print("initGameState")
         player: Player = Player()
+        self.serializationPlayer.loadTeams(player)
+
+        for team in player.teams: 
+            print("Player: ", "name: ", team.player.name)
         return GameState(EnumScene.MENU, player)
 
     def initDebug(self):

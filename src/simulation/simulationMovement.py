@@ -3,6 +3,7 @@ from typing import List
 from pygame import Rect, Surface, Vector2
 from loadedAssets.assetsRegistry import AssetsRegistry 
 from core.sprite import Sprite
+from simulation.world.simulationEncounter import SimulationEncounter
 from world.tile import Tile
 from world.traveler import Traveler
 from world.world import World
@@ -10,9 +11,10 @@ from world.world import World
 
 class SimulationMovement:
 
-    def __init__(self, world: World, textures: dict):
+    def __init__(self, world: World, textures: dict, simulationEncounter: SimulationEncounter):
         self.world = world
         self.textures = textures 
+        self.simulationEncounter = simulationEncounter
 
     def spawnTravelerInTiles(self): 
         traveler = self.world.traveler
@@ -36,8 +38,12 @@ class SimulationMovement:
         targetTile.occupy = traveler 
         traveler.tileX = x
         traveler.tileY = y
+
         newTravlerPosition = Vector2(targetTile.rect.centerx, targetTile.rect.centery)
         traveler.position = newTravlerPosition
+        traveler.sprite.position = newTravlerPosition
+
+        self.simulationEncounter.rollEncounter()
 
     def travelUp(self): 
         newX = self.world.traveler.tileX 

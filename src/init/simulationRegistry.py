@@ -1,6 +1,9 @@
+from init.serializationRegistry import SerializationRegistry
 from init.stateRegistry import StateRegistry
 from loadedAssets.assetsRegistry import AssetsRegistry
+from simulation.menu.simulationMenu import SimulationMenu
 from simulation.simulationNavigation import SimulationNavigation
+from simulation.world.simulationEncounter import SimulationEncounter
 from simulation.world.simulationTileGeneration import SimulationTileGeneration
 from state.game.gameState import GameState
 from state.settings.display import Display
@@ -26,7 +29,8 @@ class SimulationRegistry:
      ):
         self.simulationNavigation: SimulationNavigation = self.initSimulationNavigation(stateRegistry.gameState) 
         self.simulationTileGeneration: SimulationTileGeneration = self.initSimulationTileGeneration(worldRegistry, assetsRegistry)
-        self.simulationMovement: SimulationMovement = self.initSimulationMovement(worldRegistry.world, assetsRegistry.textures)
+        self.simulationEncounter = self.initSimulationEncounter(stateRegistry)
+        self.simulationMovement: SimulationMovement = self.initSimulationMovement(worldRegistry.world, assetsRegistry.textures, self.simulationEncounter)
         self.simulationUi: SimulationUi = self.initSimulationUi(stateRegistry, uiRegistry)
         self.simulationState: SimulationState = self.initSimulationState(stateRegistry, self.simulationUi)
 
@@ -39,14 +43,17 @@ class SimulationRegistry:
         )
         pass
 
+    def initSimulationMenu(self, serializationRegistry: SerializationRegistry): 
+        return SimulationMenu(serializationRegistry)
+
     def initSimulationNavigation(self, gameState: GameState):
         return SimulationNavigation(gameState) 
 
     def initSimulationTileGeneration(self, worldRegistry: WorldRegistry, assetsRegistry: AssetsRegistry):
         return SimulationTileGeneration(worldRegistry, assetsRegistry)
 
-    def initSimulationMovement(self, world: World, textures: dict):
-        return SimulationMovement(world, textures)
+    def initSimulationMovement(self, world: World, textures: dict, simulationEncounter):
+        return SimulationMovement(world, textures, simulationEncounter)
 
     def initSimulationUi(self, stateRegistry: StateRegistry, uiRegistry: UIRegistry):
         return SimulationUi(stateRegistry, uiRegistry) 
@@ -59,5 +66,8 @@ class SimulationRegistry:
                 
     def initSimulationCombat(self, gameState: GameState, spawnSystem: SimulationSpawn, display: Display, player: Player): 
         return SimulationCombat(gameState, spawnSystem, display, player)
+
+    def initSimulationEncounter(self, stateRegistry: StateRegistry):
+        return SimulationEncounter(stateRegistry)
 
 

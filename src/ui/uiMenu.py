@@ -1,4 +1,3 @@
-
 from typing import Dict
 from pygame import Rect, Vector2
 from pygame_gui.core import UIElement
@@ -13,8 +12,9 @@ class UIMenu:
 
     def __init__(self, uiFactory: UIFactory):
 
-        self.menuLabel = uiFactory.label(Vector2(300, 0), Vector2(200, 50), "Menu", "")
-        self.playButton  = uiFactory.button(Vector2(300, 30), Vector2(200, 50), "Go to world", "#playButton")
+        self.menuPanel = uiFactory.panel(Vector2(200, 200), Vector2(300, 300), "")
+        self.menuLabel = uiFactory.label(Vector2(0, 0), Vector2(50, 15), "Menu", "Label", uiContainer=self.menuPanel)
+        self.playButton  = uiFactory.button(Vector2(0, 0), Vector2(200, 50), "Go to world", "#playButton")
 
         self.uis = [
                 self.menuLabel,

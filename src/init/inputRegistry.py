@@ -1,5 +1,6 @@
 import pygame
 from init import simulationRegistry
+from inputs.inputCombat import InputCombat
 from state.game.gameState import GameState
 from init.stateRegistry import StateRegistry
 from init.simulationRegistry import SimulationRegistry
@@ -15,6 +16,7 @@ class InputRegistry:
         self.inputBasic = self.initInputBasic(stateRegistry.gameState)
         self.inputMenu = self.initInputMenu(stateRegistry.gameState, serializationPlayer, simulationRegistry) 
         self.inputWorld = self.initInputWorld(stateRegistry.gameState, simulationRegistry)
+        self.inputCombat = self.initInputCombat(stateRegistry.gameState, simulationRegistry)
         self.serializationPlayer = serializationPlayer
 
     def initInputBasic(self, gameState: GameState):
@@ -26,4 +28,6 @@ class InputRegistry:
     def initInputWorld(self, gameState, simulationRegistry: SimulationRegistry):
         return InputWorld(gameState, simulationRegistry)
 
+    def initInputCombat(self, gameState, simulationRegistry: SimulationRegistry):
+        return InputCombat(gameState, simulationRegistry)
             

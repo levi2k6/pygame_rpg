@@ -18,6 +18,7 @@ from inputs.inputBasic import InputBasic
 from inputs.inputFunction import InputFunction
 from init.inputRegistry import InputRegistry
 from ui import uiMenu
+from ui.uiCombat import UICombat
 from ui.uiMenu import UIMenu
 from ui.uiRegistry import UIRegistry
 from ui.uiWorld import UIWorld
@@ -31,9 +32,11 @@ class EventHandler:
         self.uiManager: UIManager = uiRegistry.uiManager
         self.uiMenu: UIMenu = uiRegistry.uiMenu
         self.uiWorld: UIWorld = uiRegistry.uiWorld
+        self.uiCombat: UICombat = uiRegistry.uiCombat
         self.inputBasic: InputBasic = inputRegistry.inputBasic
         self.inputMenu = inputRegistry.inputMenu
         self.inputWorld = inputRegistry.inputWorld 
+        self.inputCombat = inputRegistry.inputCombat
 
 
     def processEvents(self, events):
@@ -41,6 +44,8 @@ class EventHandler:
             self.handleInput(events, self.inputMenu.inputs, self.uiMenu.actions)
         elif self.gameState.currentScene == EnumScene.WORLD:
             self.handleInput(events, self.inputWorld.inputs, self.uiWorld.actions)
+        elif self.gameState.currentScene == EnumScene.COMBAT:
+            self.handleInput(events, self.inputCombat.inputs, self.uiCombat.actions)
 
     def handleInput(self, events: List[Event], inputSceneInputs: dict, uiSceneActions: dict):
         for event in events:
@@ -87,5 +92,4 @@ class EventHandler:
 
 
             self.uiManager.process_events(event)
-
 

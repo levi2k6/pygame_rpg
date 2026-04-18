@@ -1,4 +1,3 @@
-from pygame_gui import UIManager
 from render import rendererBasic
 from render.rendererScene import RendererScene
 from render.rendererSprite import RendererSprite

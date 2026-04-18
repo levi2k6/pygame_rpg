@@ -10,16 +10,11 @@ import struct
 
 class SerializationPlayer:
 
-    def __init__(self, serializationUtil: SerializationUtil, player: Player):
+    def __init__(self, serializationUtil: SerializationUtil):
         self.serializationUtil = serializationUtil
-        self.player = player
 
 
     def saveTeam(self):
-        savePath = self.serializationUtil.getPlayerSavePath()
-
-        teams: List[Team] = self.player.teams
-
         for i in range(9999): 
             newFilename = f"char{i:04d}.dat"
             newFilePath = os.path.join(self.serializationUtil.getPlayerSavePath(), newFilename)
@@ -36,10 +31,10 @@ class SerializationPlayer:
                 break
 
 
-    def updateTeam(self): 
+    def updateTeam(self, player: Player): 
         savePath = self.serializationUtil.getPlayerSavePath()
 
-        currentTeam: Team | None = self.player.currentTeam
+        currentTeam: Team | None = player.currentTeam
         if currentTeam == None:
             raise RuntimeError("Current team is empty")
 
@@ -53,16 +48,16 @@ class SerializationPlayer:
                 f.write(encodedName)
 
                
-    def updateTeams(self, team: Team):
+    def updateTeams(self, player: Player):
         savePath = self.serializationUtil.getSavePath()
-        currentTeam = self.player.currentTeam
+        currentTeam = player.currentTeam
         if currentTeam == None: 
             raise RuntimeError("player currentTeam is None")
 
         name = currentTeam.player.name 
         encodedName = name.encode("utf-8")
 
-        for team in self.player.teams: 
+        for team in player.teams: 
             filePath = f"s{savePath}/{team.filename}"
 
             if os.path.exists(filePath):
@@ -72,7 +67,7 @@ class SerializationPlayer:
                     f.write(struct.pack(encodedName))
 
 
-    def loadTeams(self):
+    def loadTeams(self, player: Player):
         savePath = self.serializationUtil.getPlayerSavePath()
 
         for file in os.scandir(savePath):
@@ -90,11 +85,10 @@ class SerializationPlayer:
                     name = nameBytes.decode("utf-8")
                     print("name: ", name)
 
-                    player: Human = Human(name)
-                    team: Team = Team(player, None, file.name)
+                    loadedPlayer: Human = Human(name)
+                    loadedTeam: Team = Team(loadedPlayer, None, file.name)
 
-                    self.player.teams.append(team)
-
+                    player.teams.append(loadedTeam)
         pass
          
 

@@ -22,7 +22,6 @@ class RendererWorld:
         pass
 
     def renderWorld(self):
-
         if len(self.world.tiles) == 0:
             return
 
@@ -46,7 +45,6 @@ class RendererWorld:
         #traveler render 
         traveler: Traveler = self.world.traveler
         self.rendererBasic.renderTexture(traveler.sprite.transformedSprite, traveler.sprite.size, traveler.sprite.position)
-
 
 
     pass

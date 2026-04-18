@@ -18,8 +18,8 @@ class WorldRegistry:
 
     def initWorld(self, textures: Dict):
         rect: Rect = Rect(0, 0, 1000, 1000) 
-        width: int = 5
-        height: int = 5 
+        width: int = 40
+        height: int = 40 
         tiles: List[List[Tile]] = []
         tilesWidth: float = 100 
         tilesHeight: float = 100 

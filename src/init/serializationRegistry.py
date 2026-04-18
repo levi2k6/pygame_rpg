@@ -8,9 +8,9 @@ from state.game.player import Player
 
 
 class SerializationRegistry:
-    def __init__(self, player: Player):
+    def __init__(self):
         self.serializationUtil: SerializationUtil = self.initSerializationUtil()
-        self.serializationPlayer = self.initSerializationPlayer(self.serializationUtil, player)
+        self.serializationPlayer = self.initSerializationPlayer(self.serializationUtil)
         pass
 
     def initSerializationUtil(self):
@@ -18,9 +18,8 @@ class SerializationRegistry:
         serializationUtil.initSaveDirectories()
         return serializationUtil
 
-    def initSerializationPlayer(self, serializationUtil: SerializationUtil, player: Player): 
-        serializationPlayer: SerializationPlayer = SerializationPlayer(serializationUtil, player)
-        serializationPlayer.loadTeams()
+    def initSerializationPlayer(self, serializationUtil: SerializationUtil): 
+        serializationPlayer: SerializationPlayer = SerializationPlayer(serializationUtil)
         return serializationPlayer
 
 

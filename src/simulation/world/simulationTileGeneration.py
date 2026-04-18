@@ -34,8 +34,8 @@ class SimulationTileGeneration:
             #genrate row
             for _ in range(height):
                 rect: Rect = Rect(rowX, rowY, tilesWidth, tilesHeight)
-                print("tilesWidth: ", tilesWidth)
-                print("tileHeight: ", tilesHeight)
+                # print("tilesWidth: ", tilesWidth)
+                # print("tileHeight: ", tilesHeight)
                 tile: Tile = Tile(rect, self.textures["forsen"])
                 row.append(tile)
                 rowX += tilesWidth 

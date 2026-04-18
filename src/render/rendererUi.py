@@ -19,6 +19,7 @@ class RendererUI:
         self.settingsState = stateRegistry.settingsState
         self.uiMenu = uiRegistry.uiMenu 
         self.uiWorld = uiRegistry.uiWorld
+        self.uiCombat = uiRegistry.uiCombat
 
 
     def renderUiMenu(self, delta: float): 
@@ -28,6 +29,9 @@ class RendererUI:
                 ui.show()
             for ui in self.uiWorld.uis:
                 ui.hide()
+            for ui in self.uiCombat.uis:
+                ui.hide()
+
             self.gameState.lastScene = self.gameState.currentScene
 
         self.uiManager.update(delta)
@@ -40,10 +44,30 @@ class RendererUI:
                 ui.show()
             for ui in self.uiMenu.uis:
                 ui.hide()
+            for ui in self.uiCombat.uis:
+                ui.hide()
+
             self.gameState.lastScene = self.gameState.currentScene
 
         self.uiManager.update(delta)
         self.uiManager.draw_ui(self.settingsState.display.screen)
+
+    
+    def renderUICombat(self, delta: float):
+        if self.gameState.currentScene != self.gameState.lastScene:
+            print("show combat")
+            for ui in self.uiCombat.uis:
+                ui.show()
+            for ui in self.uiMenu.uis:
+                ui.hide()
+            for ui in self.uiCombat.uis:
+                ui.hide()
+
+            self.gameState.lastScene = self.gameState.currentScene
+
+        self.uiManager.update(delta)
+        self.uiManager.draw_ui(self.settingsState.display.screen)
+
 
 
             

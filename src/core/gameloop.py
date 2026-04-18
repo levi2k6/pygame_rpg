@@ -62,6 +62,10 @@ class GameLoop:
         elif self.gameState.currentScene == EnumScene.WORLD:
             self.rendererWorld.renderWorld()
             self.rendererUi.renderUiWorld(delta)
+        
+        elif self.gameState.currentScene == EnumScene.COMBAT:
+            # print("in combat scene")
+            pass
 
 
 
